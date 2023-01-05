@@ -29,14 +29,17 @@ const userSlice = createSlice({
     reducers: {
         logout(state, action){
             state.user = action.payload
+            window.localStorage.removeItem('token')
         }
     },
     extraReducers: (builder) =>{
         builder.addCase(registerUser.fulfilled, (state, action) =>{
             state.user = action.payload
+            window.localStorage.setItem('token', action.payload.token)
         })
         builder.addCase(loginUser.fulfilled, (state, action) =>{
             state.user = action.payload
+            window.localStorage.setItem('token', action.payload.token)
         })
     }
 })
