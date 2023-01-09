@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios from '../axios'
 
 
 const initialState = {
@@ -22,6 +22,14 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+export const checkMe = createAsyncThunk(
+    'user/checkMe',
+    async () =>{
+        const res = await axios.get(`http://localhost:5000/me`)
+        return res.data
+    }
+)
+
 
 const userSlice = createSlice({
     name: 'user',
@@ -40,6 +48,9 @@ const userSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action) =>{
             state.user = action.payload
             window.localStorage.setItem('token', action.payload.token)
+        })
+        builder.addCase(checkMe.fulfilled, (state, action) =>{
+            state.user = action.payload
         })
     }
 })

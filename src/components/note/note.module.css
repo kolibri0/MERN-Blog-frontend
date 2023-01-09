@@ -1,0 +1,155 @@
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    gap: 20px;
+    justify-content: center;
+}
+.item{
+    padding: 12px 8px;
+    border: 1px solid black;
+    height: 135px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    position: relative;
+}
+.edit{
+    position: absolute;
+    right: 10px;
+    top: 13px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+.edit:hover{
+    color: rgb(255, 182, 46);
+}
+.delete{
+    position: absolute;
+    bottom: 11px;
+    right: 11px;
+    font-size: 20px;
+}
+.delete:hover{
+    transition: all 0.4s;
+    color: rgb(255, 46, 46);
+}
+.plus{
+    font-size: 65px;
+    color: rgb(97, 97, 97);
+    cursor: pointer;
+    transition: all 0.5s;
+    margin: 0 auto 15px;
+    display: block;
+}
+.plus:hover{
+    color: rgb(5, 202, 5);
+}
+
+.hr{
+    height: 2px;
+    background-color: #dbdbdb;
+    width: 890px;
+    display: block;
+    margin: 0 auto;
+}
+.addForm{
+    padding: 20px;
+    width: 900px;
+    height: 600px;
+    margin: 20px auto 0;
+    background-color: white;
+    position: relative;
+}
+.textarea{
+    min-width: 860px;
+    min-height: 500px;
+    resize: none;
+    outline: none;
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    word-wrap: break-word;
+}
+.title{
+    border: none;
+    width: 860px;
+    height: 30px;
+    outline: none;
+    padding: 5px 20px;
+    display: block;
+    font-size: 20px;
+    text-decoration: none;
+}
+.btn{
+   width: 85px;
+   height: 27px;
+   border-radius: 5px;
+   border: none;
+   color: #ffffff;
+   background-color: rgb(87, 87, 209);
+   transition: all 0.5s;
+   cursor: pointer;
+   margin-right: 10px;
+}
+.btn:hover{
+    background-color:  rgb(44, 44, 187);
+}
+.cancel{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+.cancel:hover{
+    text-decoration: underline;
+    color: rgb(87, 87, 209);
+}
+.right{
+    display: block;
+    text-align: right;
+    margin:  0 5px 0 0;
+}
+.link{
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    word-wrap: break-word;
+}
+.link:hover{
+    text-decoration: underline;
+}
+.modal{
+    position: absolute;
+    right: 0;
+    top: 50px;
+    line-height: 15px;
+    border: 1px solid rgb(216, 216, 216);
+    width: 125px;
+    color: green;
+    height: 15px;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+    background-color: #ffffff;
+    z-index: 100;
+    border-radius: 12px 2px 2px 12px;
+    animation: modalAnimation 3s forwards;
+}
+.none{
+    display: none;
+}
+@keyframes modalAnimation {
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opacity: 0.4;
+    }
+    75%{
+        opacity: 0.9;
+        transform: translateX(-90px);
+    }
+    100%{
+        opacity: 0.4;
+        transform: translateX(0px);
+    }
+}
