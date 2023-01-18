@@ -4,17 +4,25 @@ import SignIn from './components/register';
 import Note from './components/note';
 import NoteAdd from './components/note/note-item/note-add';
 import NoteItem from './components/note/note-item'
+import BlogList from './components/blog';
+import Post from './components/blog/post';
 
-import {Link, Route, Routes} from 'react-router-dom'
+
+import {Link, Route, Routes, NavLink, Navigate} from 'react-router-dom'
 import { CheckAuth } from './components/checkAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkMe, logout } from './redux/userSlice';
 
 import './App.css'
 import { useEffect } from 'react';
+import AddPost from './components/blog/add-post/add-post';
+import ChangePost from './components/blog/change-post/change-post';
+
+
 
 
 const nav = [
+  {herf: '/posts', text: "Blog"},
   {herf: '/todos', text: "Todos"},
   {herf: '/note', text: "Note"},
 ]
@@ -35,11 +43,14 @@ function App() {
       <div className='head'>
         <div className='contain-nav'>
           <div>
-            {nav.map((res) =><Link to={res.herf}>{res.text}</Link>)}
+            {nav.map((res) =><NavLink className={({isActive}) => (!isActive ? 'nav-item' : 'nav-item-selected')} to={res.herf}>{res.text}</NavLink>)}
           </div>
           <div>
             {user
-            ?<Link><a onClick={() => logoutUser()}>Logout</a></Link> 
+            ?<>
+              <Link to='/add-post' className='add-post'>Add post</Link>
+              <Link ><a onClick={() => logoutUser()}>Logout</a></Link> 
+            </>
             :<Link to={"/login"}>Login</Link>
             }
           </div>
@@ -50,6 +61,26 @@ function App() {
       
 
     <Routes>
+      <Route path='/login' element={<Login/>} />
+      <Route path='/register' element={<SignIn/>} />
+      <Route path='/' element={<Navigate to='/posts' />}/>
+      <Route path='/posts' element={<BlogList/>} />
+      
+      <Route path='/posts/:id' element={
+        <CheckAuth>
+            <Post/>
+        </CheckAuth>
+      }/>
+      <Route path='/posts/:id/edit' element={
+        <CheckAuth>
+            <ChangePost/>
+        </CheckAuth>
+      }/>
+      <Route path='/add-post' element={
+        <CheckAuth>
+            <AddPost/>
+        </CheckAuth>
+      }/>
       <Route path='/todos' element={
         <CheckAuth>
             <Todos/>
@@ -75,8 +106,6 @@ function App() {
             <NoteAdd/>
         </CheckAuth>
       }/>
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<SignIn/>} />
     </Routes>
     </div>
   );

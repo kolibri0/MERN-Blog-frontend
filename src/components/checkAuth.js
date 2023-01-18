@@ -4,8 +4,8 @@ import { userAuthSelector } from "../redux/userSlice"
 
 export const CheckAuth = ({ children }) =>{
     const user = useSelector(userAuthSelector)
-    if(user){
-        return children
+    if(!user && !window.localStorage.getItem('token')){
+       return <Navigate to='/login' replace={true} /> 
     }
-    return <Navigate to='/login' replace={true} />
+    return children
 }

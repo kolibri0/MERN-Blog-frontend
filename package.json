@@ -12,11 +12,14 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.5",
     "react-icons": "^4.7.1",
+    "react-markdown": "^8.0.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
+    "react-simplemde-editor": "^5.2.0",
     "react-tooltip": "^5.3.4",
     "redux-toolkit": "^1.1.2",
+    "rehype-highlight": "^6.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

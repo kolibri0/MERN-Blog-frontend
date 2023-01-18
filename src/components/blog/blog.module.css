@@ -1,0 +1,81 @@
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+.category{
+    display: flex;
+    margin-left: 80px;
+}
+.categoryItem{
+    margin: 10px 10px 20px 0;
+    padding: 1px 2px;
+    width: auto;
+    border: 1px solid rgb(245, 245, 245);
+    transition: all 0.6s;
+}
+.categoryItem:hover{
+    color:rgb(25, 25, 250);
+    border-bottom: 1px solid rgb(25, 25, 250);
+    border-radius: 5px;
+}
+.content{
+    display: flex;
+    justify-content: center;
+}
+.posts{
+    width: 750px;
+    margin-right: 48px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.postItem{
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+.tags{
+    width: 250px;
+    border: 1px solid red;
+    
+}
+.img{
+    display: block; 
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0;
+}
+.info{
+    display: flex;
+    padding-top: 10px;
+}
+.person{
+    font-size: 30px;
+    margin-left: 20px;
+    color: gray;
+}
+.name{
+    font-size: 18px;
+    margin: 0;
+    margin-left: 5px;
+}
+.title{
+    margin: 5px 0 10px 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+    display: block;
+}
+.tagItem{
+    display: inline;
+    margin-right: 7px;
+    margin-left: 5px;
+}
+.icons{
+    display: flex;
+    margin-left: 5px;
+}
+.iconItem{
+    align-items: center;
+    margin: 10px 15px 10px 0;
+}

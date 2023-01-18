@@ -1,0 +1,180 @@
+.color{
+    color: red;
+}
+.img{
+    /* margin: 0 auto;  */
+    display: block;
+    border-radius: 10px 10px 0 0;
+}
+.info{
+    display: flex;
+    padding-top: 10px;
+}
+.post{
+    margin: 25px auto 20px;
+    width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: relative;
+}
+.tagItem{
+    display: inline;
+    margin-right: 7px;
+    margin-left: 5px;
+    color: gray;
+    cursor: pointer;
+}
+.title{
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+    display: block;
+}
+.text{
+    width: 800px;
+    margin-top: 8px;
+}
+.person{
+    font-size: 30px;
+    margin-left: 20px;
+    margin-right: 5px;
+    color: gray;
+}
+.icons{
+    display: flex;
+    margin-left: 5px;
+}
+.iconItem{
+    align-items: center;
+    margin: 10px 15px 10px 0;
+}
+.name{
+    font-size: 18px;
+    margin: 0;
+}
+.comments{
+    width: 860px;
+    display: block;
+    margin: 0 auto 40px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+.commentAdd{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.block{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.input{
+    width: 770px;
+    height: 20px;
+    padding: 8px;
+    border-radius: 10px 0 10px 0;
+    border: 1px solid gray;
+    outline: none;
+}
+.btn{
+    width: 85px;
+    height: 27px;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+    background-color: rgb(87, 87, 209);
+    transition: all 0.5s;
+    cursor: pointer;
+    display: block;
+    margin-right: 20px;
+    margin-left: auto;
+}
+.btn:hover{
+    background-color:  rgb(44, 44, 187);
+}
+.commentItem{
+    border-bottom: 1px solid gray;
+    padding: 5px 0 10px 0;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.commentPerson{
+    display: flex;
+    margin-left: 20px;
+    
+}
+.personComment{
+    font-size: 20px;
+    cursor: pointer;
+    color: #000000;
+}
+.commentName{
+    margin-left: 5px;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: none;
+}
+.commentText{
+    margin-left: 20px;
+}
+.delete{
+    position: absolute;
+    right: 8px;
+    bottom: 10px;
+    cursor: pointer;
+}
+.delete:hover{
+    color: red;
+}
+.edit{
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+    cursor: pointer;
+}
+.edit:hover{
+    color: orange;
+}
+.changeBtns{
+    display: flex;
+}
+.cancel{
+    width: 50px;
+    height: 27px;
+    border-radius: 3px;
+    border: none;
+    border-bottom: 1px solid white;
+    color: #000000;
+    background-color: #ffffff;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-left: 55px;
+}
+.cancel:hover{
+    border-bottom: 1px solid blue;
+    color: blue;
+}
+.back{
+    width: 50px;
+    height: 27px;
+    border-radius: 3px;
+    border: none;
+    border: 1px solid rgb(223, 223, 223);
+    color: #000000;
+    background-color: #ffffff;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
+.back:hover{
+    border-bottom: 1px solid blue;
+    color: blue;
+}
