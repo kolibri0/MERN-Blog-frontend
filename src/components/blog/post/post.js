@@ -25,12 +25,6 @@ const Post = () => {
     const [idChange, setIdChange] = useState(null)
     const {user} = useSelector(state => state.userSlice)
 
-    const getAllComments = async () => {
-        const comments = await axios.get(`http://localhost:5000/comments/${id}`)
-        setComments(comments.data.list.reverse())
-    }
-
-
     useEffect(() => {
         try {
             const fetchPost = async () => {
@@ -43,6 +37,11 @@ const Post = () => {
            
         }
     }, [])
+
+    const getAllComments = async () => {
+        const comments = await axios.get(`http://localhost:5000/comments/${id}`)
+        setComments(comments.data.list.reverse())
+    }
 
     const createComment = async () => {
         const {data} = await axios.post(`http://localhost:5000/comments/${id}`, {text: commentText})
@@ -67,6 +66,17 @@ const Post = () => {
             setIdChange(null)
             setCommentText('')
         }
+    }
+
+    const deletePost = async () => {
+        const {data} = await axios.delete(`http://localhost:5000/posts/${id}`)
+        if(data.success){
+            navigate('/')
+        }
+    }
+
+    const ChangePost = async () => {
+       navigate(`/posts/${id}/edit`)
     }
 
     const cancel = () => {
@@ -96,6 +106,12 @@ const Post = () => {
                         <div className={styles.iconItem}><BiComment /> {post.comments.length}</div>
                     </div>
                     <button className={styles.back} onClick={() => navigate('/posts')}>Back</button>
+                    {user._id === post.user._id
+                    ?<>
+                        <RiDeleteBin6Line  className={styles.deletePost} onClick={() => deletePost()}/>
+                        <RiEdit2Line className={styles.changePost} onClick={() => ChangePost()}/>
+                    </>
+                    :null}
                 </div>
             </div>
     </div>

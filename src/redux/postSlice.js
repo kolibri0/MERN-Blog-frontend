@@ -14,6 +14,15 @@ export const getAllPosts = createAsyncThunk(
     }
 )
 
+export const getPostsByTags = createAsyncThunk(
+    'note/getPostsByTags',
+    async (tag) =>{
+        const {data} = await axios.get(`http://localhost:5000/posts/params/${tag}`)
+        return data
+    }
+)
+
+
 
 const postSlice = createSlice({
     name: 'posts',
@@ -21,6 +30,9 @@ const postSlice = createSlice({
     reducers: {},
     extraReducers: (builder) =>{
         builder.addCase(getAllPosts.fulfilled, (state, action) =>{
+            state.posts = action.payload.posts
+        })
+        builder.addCase(getPostsByTags.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
         })
     }

@@ -40,6 +40,7 @@ const AddPost = () => {
     const info = {
       title,
       text,
+      tags: tags.split(","),
       imgUrl
     }
     const {data} = await axios.post('http://localhost:5000/posts', info)
@@ -58,6 +59,8 @@ const AddPost = () => {
         inputFileRef={inputFileRef}
         onChange={onChange}
         changedInput={changedInput}
+        tags={tags}
+        setTags={setTags}
         />
     </div>)
 

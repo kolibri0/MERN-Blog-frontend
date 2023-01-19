@@ -35,7 +35,9 @@ function App() {
   }
 
   useEffect(() => {
-    dispatch(checkMe())
+    if(window.localStorage.getItem('token')){
+      dispatch(checkMe())
+    }
   }, [])
 
   return (
@@ -66,6 +68,7 @@ function App() {
       <Route path='/' element={<Navigate to='/posts' />}/>
       <Route path='/posts' element={<BlogList/>} />
       
+    
       <Route path='/posts/:id' element={
         <CheckAuth>
             <Post/>

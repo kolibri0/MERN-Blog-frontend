@@ -20,6 +20,7 @@ const ChangePost = () => {
             onChange(post.data.post.text)
             setTitle(post.data.post.title)
             setImgUrl(post.data.post.imgUrl)
+            setTags(post.data.post.tags.join())
         }
         fetchPost()
     }, [])
@@ -49,6 +50,7 @@ const ChangePost = () => {
       const info = {
         title,
         text,
+        tags: tags.split(','),
         imgUrl
       }
       const {data} = await axios.patch(`http://localhost:5000/posts/${id}`, info)
@@ -67,6 +69,8 @@ const ChangePost = () => {
           inputFileRef={inputFileRef}
           onChange={onChange}
           changedInput={changedInput}
+          tags={tags}
+          setTags={setTags}
           />
       </div>)
   

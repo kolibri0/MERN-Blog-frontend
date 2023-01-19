@@ -52,6 +52,9 @@ const userSlice = createSlice({
         builder.addCase(checkMe.fulfilled, (state, action) =>{
             state.user = action.payload
         })
+        builder.addCase(checkMe.rejected, (state, action) =>{
+            console.log(action)
+        })
     }
 })
 

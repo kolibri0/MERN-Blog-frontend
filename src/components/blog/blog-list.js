@@ -14,7 +14,6 @@ const BlogList = () => {
         dispatch(getAllPosts())
     }, [])
 
-    console.log(posts)
 
     return(
     <div className={styles.container}>
@@ -35,6 +34,7 @@ const BlogList = () => {
                 createdAt={post.createdAt}
                 comments={post.comments}
                 img={post.imgUrl ? `http://localhost:5000` + post.imgUrl : null}
+                tags={post.tags}
                 />)
             : null
         }</div>
