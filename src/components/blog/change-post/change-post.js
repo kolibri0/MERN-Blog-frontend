@@ -47,10 +47,11 @@ const ChangePost = () => {
     }
   
     const onSubmit = async () => {
+      const checkSpaces = (str) => str.trim() !== ''
       const info = {
         title,
         text,
-        tags: tags.split(','),
+        tags: tags.length > 0 && checkSpaces(tags) ? tags.trim().split(",") : [],
         imgUrl
       }
       const {data} = await axios.patch(`http://localhost:5000/posts/${id}`, info)

@@ -24,6 +24,9 @@
     color: gray;
     cursor: pointer;
 }
+.tagItem:hover{
+    color: #000000;
+}
 .title{
     margin: 0 0 10px 0;
     font-size: 20px;
@@ -54,6 +57,11 @@
 .name{
     font-size: 18px;
     margin: 0;
+    text-decoration: none;
+    color: #000000;
+}
+.name:hover{
+    opacity: 0.8;
 }
 .comments{
     width: 860px;

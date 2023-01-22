@@ -1,7 +1,8 @@
 import axios from "../../../axios"
-import { useEffect, useState, useRef } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import React from "react"
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { getPostsByTags} from '../../../redux/postSlice'
 
 import { CgProfile } from 'react-icons/cg'
 import { AiOutlineEye } from 'react-icons/ai'
@@ -15,17 +16,20 @@ import styles from './post.module.css'
 
 
 const Post = () => {
+    const dispatch = useDispatch()
     const {id} = useParams()
     const navigate = useNavigate()
-    const textInput = useRef(null)
-    const [post, setPost] = useState(null)
-    const [comments, setComments] = useState([])
-    const [commentText, setCommentText] = useState('')
-    const [change, setChange] = useState(false)
-    const [idChange, setIdChange] = useState(null)
+    const textInput = React.useRef(null)
     const {user} = useSelector(state => state.userSlice)
 
-    useEffect(() => {
+    const [post, setPost] = React.useState(null)
+    const [comments, setComments] = React.useState([])
+    const [commentText, setCommentText] = React.useState('')
+    const [change, setChange] = React.useState(false)
+    const [idChange, setIdChange] = React.useState(null)
+    
+
+    React.useEffect(() => {
         try {
             const fetchPost = async () => {
                 const post = await axios.get(`http://localhost:5000/posts/${id}`)
@@ -75,6 +79,12 @@ const Post = () => {
         }
     }
 
+    const getByTag = (tag) => {
+       navigate(`/posts/tag/${tag}`)
+
+        dispatch(getPostsByTags(tag))
+    }
+
     const ChangePost = async () => {
        navigate(`/posts/${id}/edit`)
     }
@@ -89,17 +99,17 @@ const Post = () => {
     <>{post
     ?<><div className={styles.post}>
             {post.imgUrl
-            ?<img className={styles.img} width={900} height={400} src={`http://localhost:5000` + post.imgUrl}/> 
+            ?<img className={styles.img} width={900} height={400} src={`http://localhost:5000` + post.imgUrl} alt={'Post'}/> 
             :null
             }
             <div className={styles.info}>
-                <div><CgProfile className={styles.person}/></div>
+                <div><CgProfile className={styles.person} style={{color: `${post.user.color}`}}/></div>
                 <div>
-                    <p className={styles.name}>{post?.user.name}</p>
+                    <Link className={styles.name} to={`/user/${post.user._id}`}>{post?.user.name}</Link>
                     <div className={styles.title}>{post.title}</div>
-                    <p className={styles.tagItem}>#tag</p>
-                    <p className={styles.tagItem}>#tag</p>
-                    <p className={styles.tagItem}>#tag</p>
+                    {post.tags.length 
+                    ? post.tags.map((tag) => <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p>)
+                    : null}
                     <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{post.text}</ReactMarkdown>
                     <div className={styles.icons}>
                         <div className={styles.iconItem}><AiOutlineEye /> {post.views}</div> 

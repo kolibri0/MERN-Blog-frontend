@@ -37,3 +37,13 @@
 .add-post:hover{
     opacity: 0.7;
 }
+.my-profile{
+    align-items: center;
+    position: relative;
+    margin-right: 37px;
+}
+.profile-icon{
+    top: -1px;
+    font-size: 25px;
+    position: absolute;
+}

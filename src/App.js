@@ -7,7 +7,7 @@ import NoteItem from './components/note/note-item'
 import BlogList from './components/blog';
 import Post from './components/blog/post';
 
-
+import { CgProfile } from 'react-icons/cg'
 import {Link, Route, Routes, NavLink, Navigate} from 'react-router-dom'
 import { CheckAuth } from './components/checkAuth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import './App.css'
 import { useEffect } from 'react';
 import AddPost from './components/blog/add-post/add-post';
 import ChangePost from './components/blog/change-post/change-post';
+import Profile from './components/blog/profile/profile';
 
 
 
@@ -51,6 +52,7 @@ function App() {
             {user
             ?<>
               <Link to='/add-post' className='add-post'>Add post</Link>
+              <Link to={`/user/${user._id}`} className='my-profile'><CgProfile className='profile-icon' style={{color: `${user.color}`}}/></Link>
               <Link ><a onClick={() => logoutUser()}>Logout</a></Link> 
             </>
             :<Link to={"/login"}>Login</Link>
@@ -67,8 +69,13 @@ function App() {
       <Route path='/register' element={<SignIn/>} />
       <Route path='/' element={<Navigate to='/posts' />}/>
       <Route path='/posts' element={<BlogList/>} />
-      
+      <Route path='/posts/tag/:tag' element={<BlogList/>} />
     
+      <Route path='/user/:id' element={
+        <CheckAuth>
+            <Profile/>
+        </CheckAuth>
+      }/>
       <Route path='/posts/:id' element={
         <CheckAuth>
             <Post/>

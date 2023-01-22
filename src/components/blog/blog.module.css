@@ -7,11 +7,11 @@
     margin-left: 80px;
 }
 .categoryItem{
+    cursor: pointer;
     margin: 10px 10px 20px 0;
     padding: 1px 2px;
     width: auto;
     border: 1px solid rgb(245, 245, 245);
-    transition: all 0.6s;
 }
 .categoryItem:hover{
     color:rgb(25, 25, 250);
@@ -35,9 +35,35 @@
     cursor: pointer;
 }
 .tags{
-    width: 250px;
-    border: 1px solid red;
-    
+    width: 226px;
+    height: 330px;
+    background-color: #ffffff;
+    padding: 12px;
+    overflow-y: auto;
+}
+.tagH2{
+    font-size: 24px;
+    color: rgb(49, 49, 49);
+    margin-bottom: 10px;
+}
+.tag{
+    display: block;
+    font-size: 20px;
+    color: rgb(92, 92, 92);
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.tag:hover{
+    color: #000000;
+}
+.more{
+    color: gray;
+    border: none;
+    background-color: #ffffff;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
 }
 .img{
     display: block; 
@@ -57,6 +83,11 @@
     font-size: 18px;
     margin: 0;
     margin-left: 5px;
+    color: #000000;
+    text-decoration: none;
+}
+.name:hover{
+    opacity: 0.8;
 }
 .title{
     margin: 5px 0 10px 5px;
