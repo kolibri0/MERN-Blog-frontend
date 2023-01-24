@@ -38,7 +38,7 @@ const Note = () => {
                 <div className={styles.item} key={item._id}>
                     <Link className={styles.link} to={`/note/${item._id}`}>{item.title.slice(0, 25)+ '...'}</Link> 
                     <RiEdit2Line className={styles.edit} onClick={() => editNote(item._id)}/>
-                    <hr/>
+                    <div className={styles.hr2}/>
                     <Link className={styles.link} to={`/note/${item._id}`}>{item.text.slice(0, 88) + '...'}</Link>
                     <RiDeleteBin6Line className={styles.delete} onClick={() => removeNote(item._id)}/>
                 </div>

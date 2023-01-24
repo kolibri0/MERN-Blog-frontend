@@ -1,20 +1,26 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineExclamation} from 'react-icons/ai'
 import { Tooltip } from 'react-tooltip'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from '../auth.module.css'
 import 'react-tooltip/dist/react-tooltip.css'
-import { loginUser } from "../../redux/userSlice";
+import { loginUser, userAuthSelector } from "../../redux/userSlice";
 
 const Login = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const user = useSelector(userAuthSelector)
     const {
         register,
         formState: {errors},
         handleSubmit,
     } = useForm()
+
+    if(user){
+        navigate('/')
+    }
 
     const userLogin = (data) => {
         dispatch(loginUser(data))

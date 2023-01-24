@@ -1,10 +1,27 @@
-import React from "react";
+import React, { LegacyRef } from "react";
 import SimpleMdeReact from "react-simplemde-editor";
 
 import styles from '../add-post/add.module.css'
 
-const BlogForm = (
-    {onSubmit, text, title, setTitle, imgUrl, removeImgUrl, inputFileRef, onChange, changedInput, tags, setTags}) => {
+interface IProps{
+  onSubmit: any,
+  text: string,
+  title: string,
+  setTitle: React.Dispatch<React.SetStateAction<string>>,
+  imgUrl: string,
+  removeImgUrl: any,
+  inputFileRef: any,
+  onChange: any,
+  changedInput: any,
+  tags: string,
+  setTags: React.Dispatch<React.SetStateAction<string>>
+  
+}
+
+
+const BlogForm: React.FC<IProps> = (
+    {onSubmit, text, title, setTitle, imgUrl, removeImgUrl, inputFileRef, onChange, changedInput, tags, setTags}
+) => {
 
     const autofocusNoSpellcheckerOptions = React.useMemo(() => {
         return {

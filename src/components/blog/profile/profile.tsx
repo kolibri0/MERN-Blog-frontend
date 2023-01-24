@@ -1,22 +1,28 @@
 import React from 'react'
 import axios from '../../../axios'
-import {useNavigate, useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import { CgProfile } from 'react-icons/cg'
 import {RiEdit2Line } from 'react-icons/ri'
-import {useSelector} from 'react-redux'
 
 import styles from './profile.module.css'
 import BlogListItem from '../blog-list-item'
+import { getUserPosts } from '../../../redux/postSlice'
 
-const Profile = () => {
+import Alert from 'react-bootstrap/Alert';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { IUser } from '../../../Interface/IUser'
+
+const Profile: React.FC = () => {
     const {id} = useParams()
-    const me = useSelector(state => state.userSlice.user)
-    const [user, setUser] = React.useState(null)
-    const [posts, setPosts] = React.useState(null)
-    const [color, setColor] = React.useState('')
-    const [name, setName] = React.useState('')
-    const [change, setChange] = React.useState(false)
-    const colorOption = ["blue", "green", "red", "orange", "violet", "indigo", "yellow", "gray"]
+    const dispatch = useAppDispatch()
+    const me = useAppSelector(state => state.userSlice.user)
+    const {posts, error} = useAppSelector(state => state.postSlice)
+    const [user, setUser] = React.useState<IUser | null>(null)
+    const [color, setColor] = React.useState<string>('')
+    const [name, setName] = React.useState<string>('')
+    const [change, setChange] = React.useState<boolean>(false)
+    const colorOption: string[] = ["blue", "green", "red", "orange", "violet", "indigo", "yellow", "gray"]
 
     const fetchUser = async () => {
         const user = await axios.get(`http://localhost:5000/user/${id}`)
@@ -24,18 +30,12 @@ const Profile = () => {
         setName(user.data.name)
     }
 
-    console.log(posts)
-    const fetchUserPosts = async () => {
-        const posts = await axios.get(`http://localhost:5000/user/posts/${id}`)
-        setPosts(posts.data.posts) 
-    }
-
     React.useEffect(() => {
         fetchUser()
-        fetchUserPosts()
+        dispatch(getUserPosts(String(id)))
     }, [id])
 
-    const changeColor = (e) => {
+    const changeColor = (e: any) => {
         setColor(e.target.value)
     }
 
@@ -49,6 +49,18 @@ const Profile = () => {
             fetchUser()
         }
         setName('')
+    }
+
+    if (error) {
+        return (
+          <Alert variant="danger" style={{width: '500px', margin: '10px auto'}}>
+            <Alert.Heading>Oh snap! Somthing wrong!</Alert.Heading>
+            <p>
+            Reload the page or go to <Link to={'/'} className={styles.home}>homepage.</Link> 
+            
+            </p>
+          </Alert>
+        );
     }
 
     return(<>
@@ -94,7 +106,6 @@ const Profile = () => {
             id={post._id} 
             userId={post.user._id}
             views={post.views}
-            createdAt={post.createdAt}
             comments={post.comments}
             img={post.imgUrl ? `http://localhost:5000` + post.imgUrl : null}
             tags={post.tags}

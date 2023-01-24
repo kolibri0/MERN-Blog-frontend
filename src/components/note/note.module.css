@@ -44,13 +44,19 @@
 .plus:hover{
     color: rgb(5, 202, 5);
 }
-
 .hr{
     height: 2px;
     background-color: #dbdbdb;
-    width: 890px;
+    width: 860px;
     display: block;
-    margin: 0 auto;
+    margin: 10px auto 0;
+}
+.hr2{
+    height: 2px;
+    background-color: #dbdbdb;
+    width: auto;
+    display: block;
+    margin: 4px auto 0;
 }
 .addForm{
     padding: 20px;

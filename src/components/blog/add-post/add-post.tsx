@@ -7,15 +7,15 @@ import styles from './add.module.css'
 import BlogForm from "../blog-form/blog-form";
 
 
-const AddPost = () => {
+const AddPost: React.FC = () => {
   const navigate = useNavigate()
-  const inputFileRef = React.useRef(null)
-  const [text, setText] = React.useState("");
-  const [imgUrl, setImgUrl] = React.useState("")
-  const [title, setTitle] = React.useState("");
-  const [tags, setTags] = React.useState("");
+  const inputFileRef = React.useRef<HTMLInputElement | null>(null)
+  const [text, setText] = React.useState<string>("");
+  const [imgUrl, setImgUrl] = React.useState<string>("")
+  const [title, setTitle] = React.useState<string>("");
+  const [tags, setTags] = React.useState<string>("");
 
-  const onChange = React.useCallback((text) => {
+  const onChange = React.useCallback((text: string) => {
       setText(text);
     }, []);
 
@@ -23,7 +23,7 @@ const AddPost = () => {
     setImgUrl('')
   }
 
-  const changedInput = async (event) => {
+  const changedInput = async (event: any) => {
       try {
           const formData = new FormData()
           const file = event.target.files[0] 
@@ -37,7 +37,7 @@ const AddPost = () => {
   }
 
   const onSubmit = async () => {
-    const checkSpaces = (str) => str.trim() !== ''
+    const checkSpaces = (str: string) => str.trim() !== ''
     const info = {
       title,
       text,

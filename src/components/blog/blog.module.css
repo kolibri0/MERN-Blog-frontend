@@ -87,7 +87,7 @@
     text-decoration: none;
 }
 .name:hover{
-    opacity: 0.8;
+    color: #292929;
 }
 .title{
     margin: 5px 0 10px 5px;
@@ -97,6 +97,9 @@
     color: #000000;
     text-decoration: none;
     display: block;
+}
+.title:hover{
+    color: rgb(44, 44, 44);
 }
 .tagItem{
     display: inline;

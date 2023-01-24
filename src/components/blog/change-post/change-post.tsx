@@ -5,27 +5,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from '../add-post/add.module.css'
 import BlogForm from "../blog-form/blog-form";
 
-const ChangePost = () => {
+
+const ChangePost: React.FC = () => {
     const {id} = useParams()
     const navigate = useNavigate()
-    const inputFileRef = React.useRef(null)
-    const [text, setText] = React.useState("");
-    const [imgUrl, setImgUrl] = React.useState("")
-    const [title, setTitle] = React.useState("");
-    const [tags, setTags] = React.useState("");
+    const inputFileRef = React.useRef<HTMLInputElement>(null)
+    const [text, setText] = React.useState<string>("");
+    const [imgUrl, setImgUrl] = React.useState<string>("")
+    const [title, setTitle] = React.useState<string>("");
+    const [tags, setTags] = React.useState<string>("");
 
     React.useEffect(() => {
         const fetchPost = async () => {
-            const post = await axios.get(`http://localhost:5000/posts/${id}`)
-            onChange(post.data.post.text)
-            setTitle(post.data.post.title)
-            setImgUrl(post.data.post.imgUrl)
-            setTags(post.data.post.tags.join())
+            const {data} = await axios.get(`http://localhost:5000/posts/${id}`)
+            onChange(data.post.text)
+            setTitle(data.post.title)
+            setImgUrl(data.post.imgUrl)
+            setTags(data.post.tags.join())
         }
         fetchPost()
     }, [])
   
-    const onChange = React.useCallback((text) => {
+    const onChange = React.useCallback((text: string) => {
         setText(text);
       }, []);
   
@@ -33,7 +34,7 @@ const ChangePost = () => {
       setImgUrl('')
     }
   
-    const changedInput = async (event) => {
+    const changedInput = async (event: any) => {
         try {
             const formData = new FormData()
             const file = event.target.files[0] 
@@ -47,7 +48,7 @@ const ChangePost = () => {
     }
   
     const onSubmit = async () => {
-      const checkSpaces = (str) => str.trim() !== ''
+      const checkSpaces = (str: string) => str.trim() !== ''
       const info = {
         title,
         text,

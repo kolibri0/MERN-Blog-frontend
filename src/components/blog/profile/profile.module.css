@@ -71,3 +71,11 @@
     font-size: 30px;
     font-weight: bold;
 }
+.home{
+    color: rgb(192, 26, 26);
+    text-decoration: none;
+    cursor: pointer;
+}
+.home:hover{
+    color: red;
+}

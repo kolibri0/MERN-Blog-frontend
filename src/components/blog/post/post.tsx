@@ -1,7 +1,6 @@
 import axios from "../../../axios"
 import React from "react"
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { getPostsByTags} from '../../../redux/postSlice'
 
 import { CgProfile } from 'react-icons/cg'
@@ -11,75 +10,106 @@ import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
 
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
+import Alert from 'react-bootstrap/Alert';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import styles from './post.module.css'
+import { useAppDispatch, useAppSelector } from "../../../redux/hook"
+import { IComment, IPost } from "../../../Interface/IPost"
 
 
-const Post = () => {
-    const dispatch = useDispatch()
+const Post: React.FC = () => {
+    const dispatch = useAppDispatch()
     const {id} = useParams()
     const navigate = useNavigate()
-    const textInput = React.useRef(null)
-    const {user} = useSelector(state => state.userSlice)
+    const textInput = React.useRef<HTMLInputElement>(null)
+    const {user} = useAppSelector(state => state.userSlice)
+    const [post, setPost] = React.useState<IPost | null>(null)
+    const [comments, setComments] = React.useState<[] | IComment[]>([])
+    const [commentText, setCommentText] = React.useState<string>('')
+    const [change, setChange] = React.useState<boolean>(false)
 
-    const [post, setPost] = React.useState(null)
-    const [comments, setComments] = React.useState([])
-    const [commentText, setCommentText] = React.useState('')
-    const [change, setChange] = React.useState(false)
-    const [idChange, setIdChange] = React.useState(null)
+    const [idChange, setIdChange] = React.useState<string | null>(null)
+
+    const [errorPost, setErrorPost] = React.useState<boolean>(false)
     
 
     React.useEffect(() => {
-        try {
+        
             const fetchPost = async () => {
-                const post = await axios.get(`http://localhost:5000/posts/${id}`)
-                setPost(post.data.post)
+                try {
+                    const post = await axios.get(`http://localhost:5000/posts/${id}`)
+                    setPost(post.data.post)
+                } catch (err) {
+                    setErrorPost(true)
+                }
             }
             fetchPost()
             getAllComments()
-        } catch (err) {
-           
-        }
     }, [])
 
+    const deletePost = async () => {
+        try {
+            const {data} = await axios.delete(`http://localhost:5000/posts/${id}`)
+            if(data.success){
+                navigate('/')
+            }
+        } catch (err) {
+            alert("Somthing wrond, can't delete this post")
+        }   
+    }
+
     const getAllComments = async () => {
-        const comments = await axios.get(`http://localhost:5000/comments/${id}`)
-        setComments(comments.data.list.reverse())
+        try {
+          const comments = await axios.get(`http://localhost:5000/comments/${id}`)
+            setComments(comments.data.list.reverse())  
+        } catch (err) {
+            alert("We can't get comments for this post :(")
+        }
+        
     }
 
     const createComment = async () => {
-        const {data} = await axios.post(`http://localhost:5000/comments/${id}`, {text: commentText})
-        if(data.success){
-            getAllComments()
-            setCommentText('')
+        try {
+            const {data} = await axios.post(`http://localhost:5000/comments/${id}`, {text: commentText})
+            if(data.success){
+                getAllComments()
+                setCommentText('')
+            }
+        } catch (err) {
+            alert("We can't create comment for this post :(")
         }
+        
     }
 
-    const removeComment = async (commentId) =>{
-        const {data} = await axios.delete(`http://localhost:5000/posts/${id}/comments/${commentId}`)
-        if(data.success){
-            getAllComments()
+    const removeComment = async (commentId: string) =>{
+        try {
+            const {data} = await axios.delete(`http://localhost:5000/posts/${id}/comments/${commentId}`)
+                if(data.success){
+                getAllComments()
+            }
+        } catch (err) {
+            alert("We can't remove comment for this post :(")
         }
+        
     }
 
     const changeComment = async () =>{
-         const {data} = await axios.patch(`http://localhost:5000/comments/${idChange}`, {text: commentText})
-         if(data.success){
-            getAllComments()
-            setChange(false)
-            setIdChange(null)
-            setCommentText('')
+        try {
+            const {data} = await axios.patch(`http://localhost:5000/comments/${idChange}`, {text: commentText})
+            if(data.success){
+               getAllComments()
+               setChange(false)
+               setIdChange(null)
+               setCommentText('')
+            }
+        } catch (err) {
+            alert("We can't change comment for this post :(")
         }
+        
     }
 
-    const deletePost = async () => {
-        const {data} = await axios.delete(`http://localhost:5000/posts/${id}`)
-        if(data.success){
-            navigate('/')
-        }
-    }
-
-    const getByTag = (tag) => {
+    const getByTag = (tag: string) => {
        navigate(`/posts/tag/${tag}`)
 
         dispatch(getPostsByTags(tag))
@@ -95,8 +125,21 @@ const Post = () => {
         setCommentText('')
     }
 
-    return(
-    <>{post
+
+
+    if (errorPost) {
+        return (<Alert variant="danger" style={{width: '500px', margin: '10px auto'}}>
+            <Alert.Heading>Oh snap! Somthing wrong!</Alert.Heading>
+            <p>
+            Reload the page or go to <Link to={'/'} className={styles.home}>homepage.</Link> 
+            
+            </p>
+          </Alert>
+        )
+    }
+
+
+    return(<>{post
     ?<><div className={styles.post}>
             {post.imgUrl
             ?<img className={styles.img} width={900} height={400} src={`http://localhost:5000` + post.imgUrl} alt={'Post'}/> 
@@ -107,7 +150,7 @@ const Post = () => {
                 <div>
                     <Link className={styles.name} to={`/user/${post.user._id}`}>{post?.user.name}</Link>
                     <div className={styles.title}>{post.title}</div>
-                    {post.tags.length 
+                    {post?.tags !== undefined && post.tags.length
                     ? post.tags.map((tag) => <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p>)
                     : null}
                     <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{post.text}</ReactMarkdown>
@@ -116,7 +159,7 @@ const Post = () => {
                         <div className={styles.iconItem}><BiComment /> {post.comments.length}</div>
                     </div>
                     <button className={styles.back} onClick={() => navigate('/posts')}>Back</button>
-                    {user._id === post.user._id
+                    {user && user._id === post.user._id
                     ?<>
                         <RiDeleteBin6Line  className={styles.deletePost} onClick={() => deletePost()}/>
                         <RiEdit2Line className={styles.changePost} onClick={() => ChangePost()}/>
@@ -129,7 +172,7 @@ const Post = () => {
         <div className={styles.block}>Comments</div>
         <div className={styles.commentAdd}>
             <CgProfile className={styles.person}/>
-            <input className={styles.input} ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)} />
+            <input className={styles.Input} ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)} />
         </div> 
 
         {commentText.length && !change
@@ -147,26 +190,28 @@ const Post = () => {
         ? comments.map((comment) => (
             <div className={styles.commentItem} key={comment._id}>
                 <div className={styles.commentPerson}>
-                    <Link to={`/user/${comment?.user._id}`}><CgProfile className={styles.personComment}/></Link>  
+                    <Link to={`/user/${comment?.user._id}`}><CgProfile className={styles.personComment} style={{color: `${comment.user.color}`}}/></Link>  
                     <Link className={styles.commentName} to={`/user/${comment?.user._id}`}>{comment?.user.name}</Link> 
                 </div>
                 <div className={styles.commentText}>{comment.text}</div> 
 
-            {user._id === comment.user._id 
+            {user && user._id === comment.user._id 
             ?<div>
                 <RiDeleteBin6Line className={styles.delete} onClick={() => removeComment(comment._id)}/> 
                 <RiEdit2Line className={styles.edit} onClick={() => {
                     setChange(true)
                     setIdChange(comment._id)
                     setCommentText(comment.text)
-                    textInput.current.focus()
-                    textInput.current.scrollIntoView()
+                    if(textInput.current){
+                        textInput?.current.focus()
+                        textInput?.current.scrollIntoView()
+                    }
                     }}/> 
             </div>
             : null
             }
 
-            </div>
+        </div>
         ))
         :null 
         }
@@ -174,8 +219,8 @@ const Post = () => {
     </>
     :null
     }
-    </>
-    )
+    </>)
 }
 
 export default Post
+

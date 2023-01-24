@@ -64,7 +64,7 @@
     opacity: 0.8;
 }
 .comments{
-    width: 860px;
+    width: 900px;
     display: block;
     margin: 0 auto 40px;
     background-color: #ffffff;
@@ -80,9 +80,9 @@
     font-weight: bold;
     margin-bottom: 20px;
 }
-.input{
+.Input{
     width: 770px;
-    height: 20px;
+    height: 30px;
     padding: 8px;
     border-radius: 10px 0 10px 0;
     border: 1px solid gray;

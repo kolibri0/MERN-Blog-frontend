@@ -4,9 +4,23 @@ import { BiComment } from 'react-icons/bi'
 import {Link, } from 'react-router-dom'
 
 import styles from '../blog.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 
-const BlogListItem = ({id, name, createdAt, title, userId, views, comments, img, tags, getByTag, colorUser}) => {
+
+interface IProps{
+    id: number,
+    name: string,
+    title: string,
+    userId: number,
+    views: number,
+    comments: any[],
+    img: string | null,
+    tags: string[] | undefined,
+    getByTag?: any,
+    colorUser: string
+}
+
+const BlogListItem: React.FC<IProps> = ({id, name, title, userId, views, comments, img, tags, getByTag, colorUser}) => {
 
 
     return(<div className={styles.postItem}>
@@ -20,7 +34,7 @@ const BlogListItem = ({id, name, createdAt, title, userId, views, comments, img,
                     <Link className={styles.name} to={`/user/${userId}`}>{name}</Link>
                     <Link className={styles.title} to={`/posts/${id}`}>{title}</Link>
                     {tags
-                     ? tags.map((tag, i) => i<8 ? <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p> : null)
+                     ? tags.map((tag: string, i: number) => i<8 ? <p className={styles.tagItem} key={i} onClick={() => getByTag(tag)}>#{tag}</p> : null)
                      : null
                     }
                     <div className={styles.icons}>

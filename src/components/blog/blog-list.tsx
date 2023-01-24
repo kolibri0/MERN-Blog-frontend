@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
 import BlogListItem from './blog-list-item'
-import {useDispatch, useSelector} from 'react-redux'
 import { getNewPosts, getPopularPosts, getPostsByTags, getTags } from '../../redux/postSlice'
 
-import styles from './blog.module.css'
-import { getAllPosts } from '../../redux/postSlice'
-import { useNavigate, useParams } from 'react-router-dom'
-import { userAuthSelector } from '../../redux/userSlice'
+import Alert from 'react-bootstrap/Alert';
 
-const BlogList = () => {
-    const dispatch = useDispatch()
+import { getAllPosts } from '../../redux/postSlice'
+import { useNavigate, useParams, Link} from 'react-router-dom'
+
+import styles from './blog.module.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+
+const BlogList: React.FC = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {tag} = useParams()
-    const user = useSelector(userAuthSelector)
-    const {posts, tags} = useSelector(state => state.postSlice)
-    const [count, setCount] = useState(10)
+    const {posts, tags, error} = useAppSelector(state => state.postSlice)
+    const [count, setCount] = useState<number>(10)
 
     useEffect(() => {
         dispatch(getTags(count))
@@ -22,7 +24,7 @@ const BlogList = () => {
         if(tag) dispatch(getPostsByTags(tag))
     }, [tag, count])
 
-    const getByTag = (tag) => {
+    const getByTag = (tag: string) => {
         navigate(`/posts/tag/${tag}`)
     }
 
@@ -33,6 +35,18 @@ const BlogList = () => {
     const getPopular = () => {
         dispatch(getPopularPosts())
     }
+
+    if (error) {
+        return (
+          <Alert variant="danger" style={{width: '500px', margin: '10px auto'}}>
+            <Alert.Heading>Oh snap! Somthing wrong!</Alert.Heading>
+            <p>
+            Reload the page or go to <Link to={'/'} className={styles.home}>homepage.</Link> 
+            
+            </p>
+          </Alert>
+        );
+      }
 
     return(
     <div className={styles.container}>
@@ -52,11 +66,9 @@ const BlogList = () => {
                     id={post._id} 
                     userId={post.user._id}
                     views={post.views}
-                    createdAt={post.createdAt}
                     comments={post.comments}
                     img={post.imgUrl ? `http://localhost:5000` + post.imgUrl : null}
                     tags={post.tags}
-                    urlTag={tag}
                     getByTag={getByTag}
                     colorUser={post.user.color}
                     />)
@@ -65,7 +77,7 @@ const BlogList = () => {
             <div className={styles.tags}>
             <div className={styles.tagH2}>Tags</div>
             {tags 
-            ? tags.map((tagItem) => <div className={styles.tag} onClick={() => getByTag(tagItem)}>#{tagItem}</div>)
+            ? tags.map((tagItem: string) => <div className={styles.tag} onClick={() => getByTag(tagItem)}>#{tagItem}</div>)
             : null}
             {tags.length > 9 && <button className={styles.more} onClick={() => setCount(count + 10)}>More</button>}
             </div>

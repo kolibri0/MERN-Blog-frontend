@@ -10,27 +10,33 @@ import Post from './components/blog/post';
 import { CgProfile } from 'react-icons/cg'
 import {Link, Route, Routes, NavLink, Navigate} from 'react-router-dom'
 import { CheckAuth } from './components/checkAuth';
-import { useDispatch, useSelector } from 'react-redux';
 import { checkMe, logout } from './redux/userSlice';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import Alert from 'react-bootstrap/Alert';
 import { useEffect } from 'react';
 import AddPost from './components/blog/add-post/add-post';
 import ChangePost from './components/blog/change-post/change-post';
 import Profile from './components/blog/profile/profile';
 
+import { useAppDispatch, useAppSelector } from './redux/hook';
 
 
+interface INav{
+  href: string,
+  text: string
+}
 
-const nav = [
-  {herf: '/posts', text: "Blog"},
-  {herf: '/todos', text: "Todos"},
-  {herf: '/note', text: "Note"},
+const nav: INav[] = [
+  {href: '/posts', text: "Blog"},
+  {href: '/todos', text: "Todos"},
+  {href: '/note', text: "Note"},
 ]
 
 function App() {
-  const {user} = useSelector(state => state.userSlice)
-  const dispatch = useDispatch()
+  const {user, error} = useAppSelector(state => state.userSlice)
+  const dispatch = useAppDispatch()
   const logoutUser = () => {
     dispatch(logout(null))
   }
@@ -41,19 +47,33 @@ function App() {
     }
   }, [])
 
+  if (error) {
+    return (
+      <Alert variant="danger" style={{width: '500px', margin: '10px auto'}}>
+        <Alert.Heading>Oh snap! Somthing wrong!</Alert.Heading>
+        <p>
+        Please reload the page 
+        
+        </p>
+      </Alert>
+    );
+}
+
   return (
     <div className="App">
       <div className='head'>
         <div className='contain-nav'>
           <div>
-            {nav.map((res) =><NavLink className={({isActive}) => (!isActive ? 'nav-item' : 'nav-item-selected')} to={res.herf}>{res.text}</NavLink>)}
+            {nav.map((res: INav) =><NavLink className={({isActive}) => (!isActive ? 'nav-item' : 'nav-item-selected')} to={res.href}>{res.text}</NavLink>)}
           </div>
           <div>
             {user
             ?<>
               <Link to='/add-post' className='add-post'>Add post</Link>
-              <Link to={`/user/${user._id}`} className='my-profile'><CgProfile className='profile-icon' style={{color: `${user.color}`}}/></Link>
-              <Link ><a onClick={() => logoutUser()}>Logout</a></Link> 
+              <Link to={`/user/${user._id}`} className='my-profile'>
+                  <CgProfile className='profile-icon' style={{color: `${user.color}`}}/>
+              </Link>
+              <a onClick={() => logoutUser()} className='logout'>Logout</a> 
             </>
             :<Link to={"/login"}>Login</Link>
             }
