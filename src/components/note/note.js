@@ -30,7 +30,7 @@ const Note = () => {
     }
 
     return(
-    <div>
+    <div className={styles.container}>
         <CiCirclePlus className={styles.plus} onClick={() => addNote()}/>
     
         <div className={styles.grid}>

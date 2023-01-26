@@ -5,6 +5,8 @@
     /* margin: 0 auto;  */
     display: block;
     border-radius: 10px 10px 0 0;
+    width: 900px;
+    height: 400px;
 }
 .info{
     display: flex;
@@ -205,4 +207,71 @@
 .back:hover{
     border-bottom: 1px solid blue;
     color: blue;
+}
+
+@media (max-width: 991px){
+    .changePost{
+        cursor: pointer;
+        position: absolute;
+        top: -35px;
+        left: 0;
+        font-size: 27px;
+    }
+    .deletePost{
+        cursor: pointer;
+        position: absolute;
+        top: -35px;
+        right: 0;
+        font-size: 27px;
+        
+    }
+    .post{
+        margin: 40px auto 20px;
+        width: 800px;
+    }
+    .img{
+        width: 800px;
+        height: 400px;
+    }
+    .comments{
+        width: 800px;
+    }
+}
+@media (max-width: 768px){
+    .post{
+        margin: 40px auto 20px;
+        width: 600px;
+    }
+    .img{
+        width: 600px;
+    }
+    .comments{
+        width: 600px;
+    }
+}
+@media (max-width: 480px){
+    .post{
+        margin: 40px auto 20px;
+        width: 360px;
+    }
+    .img{
+        width:360px;
+    }
+    .comments{
+        width: 360px;
+    }
+}
+
+@media (max-width: 480px){
+    .post{
+        margin: 40px auto 20px;
+        width: 300px;
+    }
+    .img{
+        width:300px;
+        height: 200px;
+    }
+    .comments{
+        width: 300px;
+    }
 }

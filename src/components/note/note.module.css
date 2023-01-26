@@ -1,3 +1,8 @@
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
 .grid{
     display: grid;
     grid-template-columns: repeat(3, 300px);
@@ -138,24 +143,149 @@
     background-color: #ffffff;
     z-index: 100;
     border-radius: 12px 2px 2px 12px;
-    animation: modalAnimation 3s forwards;
 }
 .none{
     display: none;
 }
-@keyframes modalAnimation {
-    0%{
-        opacity: 0;
+
+@media (max-width: 1200px){
+    .container{
+        width: 1000px;
+
     }
-    25%{
-        opacity: 0.4;
+}
+@media (max-width: 991px){
+    .container{
+        width: 780px;
     }
-    75%{
-        opacity: 0.9;
-        transform: translateX(-90px);
+    .grid{
+        grid-template-columns: repeat(3, 250px);
+        gap: 10px;
     }
-    100%{
-        opacity: 0.4;
-        transform: translateX(0px);
+    .item{
+        height: 150px;
+    }
+    .addForm{
+        width: 800px;
+    }
+    .title{
+        width: 760px;
+    }
+    .textarea{
+        min-width: 760px;
+        min-height: 500px;
+    }
+    .hr{
+        width: 755px;
+    }
+}
+@media (max-width: 768px){
+    .container{
+        width: 705px;
+    }
+    .grid{
+        grid-template-columns: repeat(3, 235px);
+        gap: 10px;
+    }
+    .addForm{
+        width: 640px;
+    }
+    .title{
+        width: 600px;
+    }
+    .textarea{
+        min-width: 600px;
+        min-height: 500px;
+    }
+    .hr{
+        width: 605px;
+    }
+}
+@media (max-width: 600px){
+    .container{
+        width: 600px;
+    }
+    .grid{
+        grid-template-columns: repeat(3, 180px);
+        gap: 10px;
+    }
+    .item{
+        height: 210px;
+    }
+    .addForm{
+        width: 500px;
+        height: 510px;
+    }
+    .title{
+        width: 480px;
+    }
+    .textarea{
+        min-width: 480px;
+        min-height: 400px;
+    }
+    .hr{
+        width: 465px;
+    }
+}
+@media (max-width: 480px){
+    .container{
+        width: 400px;
+    }
+    .grid{
+        grid-template-columns: repeat(2, 200px);
+        gap: 10px;
+    }
+    .addForm{
+        width: 400px;
+        height: 560px;
+    }
+    .title{
+        width: 380px;
+    }
+    .textarea{
+        min-width: 380px;
+        min-height: 450px;
+    }
+    .hr{
+        width: 365px;
+    }
+}
+@media (max-width: 420px){
+    .container{
+        width: 300px;
+    }
+    .grid{
+        grid-template-columns: repeat(1, 220px);
+        gap: 10px;
+    }
+    .addForm{
+        width: 400px;
+        height: 560px;
+    }
+    .title{
+        width: 380px;
+    }
+    .textarea{
+        min-width: 380px;
+        min-height: 450px;
+    }
+    .hr{
+        width: 365px;
+    }
+}
+@media (max-width: 320px){
+    .addForm{
+        width: 300px;
+        height: 560px;
+    }
+    .title{
+        width: 280px;
+    }
+    .textarea{
+        min-width: 280px;
+        min-height: 450px;
+    }
+    .hr{
+        width: 265px;
     }
 }

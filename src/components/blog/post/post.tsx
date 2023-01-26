@@ -142,7 +142,7 @@ const Post: React.FC = () => {
     return(<>{post
     ?<><div className={styles.post}>
             {post.imgUrl
-            ?<img className={styles.img} width={900} height={400} src={`http://localhost:5000` + post.imgUrl} alt={'Post'}/> 
+            ?<img className={styles.img}  src={`http://localhost:5000` + post.imgUrl} alt={'Post'}/> 
             :null
             }
             <div className={styles.info}>

@@ -1,4 +1,3 @@
-import Todos from './components/todos';
 import Login from './components/login';
 import SignIn from './components/register';
 import Note from './components/note';
@@ -13,7 +12,7 @@ import { CheckAuth } from './components/checkAuth';
 import { checkMe, logout } from './redux/userSlice';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import styles from './App.module.css'
 import Alert from 'react-bootstrap/Alert';
 import { useEffect } from 'react';
 import AddPost from './components/blog/add-post/add-post';
@@ -30,7 +29,6 @@ interface INav{
 
 const nav: INav[] = [
   {href: '/posts', text: "Blog"},
-  {href: '/todos', text: "Todos"},
   {href: '/note', text: "Note"},
 ]
 
@@ -61,19 +59,19 @@ function App() {
 
   return (
     <div className="App">
-      <div className='head'>
-        <div className='contain-nav'>
+      <div className={styles.head}>
+        <div className={styles.containNav}>
           <div>
-            {nav.map((res: INav) =><NavLink className={({isActive}) => (!isActive ? 'nav-item' : 'nav-item-selected')} to={res.href}>{res.text}</NavLink>)}
+            {nav.map((res: INav) =><NavLink className={({isActive}) => (!isActive ? styles.navItem : styles.navItemSelected)} to={res.href}>{res.text}</NavLink>)}
           </div>
           <div>
             {user
             ?<>
-              <Link to='/add-post' className='add-post'>Add post</Link>
-              <Link to={`/user/${user._id}`} className='my-profile'>
-                  <CgProfile className='profile-icon' style={{color: `${user.color}`}}/>
+              <Link to='/add-post' className={styles.addPost}>Add post</Link>
+              <Link to={`/user/${user._id}`} className={styles.myProfile}>
+                  <CgProfile className={styles.profileIcon} style={{color: `${user.color}`}}/>
               </Link>
-              <a onClick={() => logoutUser()} className='logout'>Logout</a> 
+              <a onClick={() => logoutUser()} className={styles.logout}>Logout</a> 
             </>
             :<Link to={"/login"}>Login</Link>
             }
@@ -109,11 +107,6 @@ function App() {
       <Route path='/add-post' element={
         <CheckAuth>
             <AddPost/>
-        </CheckAuth>
-      }/>
-      <Route path='/todos' element={
-        <CheckAuth>
-            <Todos/>
         </CheckAuth>
       }/>
       <Route path='/note' element={

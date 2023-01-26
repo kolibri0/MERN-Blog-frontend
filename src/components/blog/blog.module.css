@@ -68,6 +68,8 @@
 .img{
     display: block; 
     margin: 0 auto;
+    height: 300px;
+    width: 750px;
     border-radius: 10px 10px 0 0;
 }
 .info{
@@ -113,4 +115,110 @@
 .iconItem{
     align-items: center;
     margin: 10px 15px 10px 0;
+}
+
+
+
+
+@media (max-width: 1200px){
+    
+    .container{
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .category{
+        display: flex;
+        margin-left: 0;
+    }
+}
+@media (max-width: 991px){
+    
+    .container{
+        width: 900px;
+        margin: 0 auto;
+    }
+    .tags{
+        width: 130px;
+        height: 330px;
+        background-color: #ffffff;
+        padding: 12px;
+        overflow-y: auto;
+        overflow-x:hidden;
+    }
+    .posts{
+        margin-right: 20px;
+    }
+    .category{
+        display: flex;
+        margin-left: 50px;
+    }
+}
+
+@media (max-width: 768px){
+    
+    .container{
+        width: 500px;
+        margin: 0 auto;
+    }
+    .tags{
+       display: none;
+    }
+    .posts{
+        margin-right: 20px;
+        width: 440px;
+        margin: 0 auto;
+    }
+    .category{
+        display: flex;
+        margin-left: 25px;
+    }
+    .img{
+        width: 440px;
+    }
+}
+@media (max-width: 480px){
+    
+    .container{
+        width: 380px;
+        margin: 0 auto;   
+    }
+    .tags{
+       display: none;
+    }
+    .posts{
+        margin-right: 20px;
+        width: 380px;
+        margin: 0 auto;
+    }
+    .category{
+        display: flex;
+        margin-left: 130px;
+    }
+    .img{
+        width: 380px;
+    }
+}
+
+@media (max-width: 360px){
+    
+    .container{
+        width: 300px;
+        margin: 0 auto;   
+    }
+    .tags{
+       display: none;
+    }
+    .posts{
+        margin-right: 20px;
+        width: 330px;
+        margin: 0 auto;
+    }
+    .category{
+        display: flex;
+        margin-left: 0;
+    }
+    .img{
+        width: 330px;
+    }
+    
 }

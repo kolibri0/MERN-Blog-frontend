@@ -67,3 +67,84 @@
 .submit:hover{
     opacity: 0.8;
 }
+
+@media (max-width: 991px){
+    .post{
+        width: 750px;
+    }
+
+    .img{
+        width: 750px;
+    }
+
+    .inputs{
+        width: 730px;
+    }
+    .markdown{
+        width: 730px;
+    }
+}
+
+@media (max-width: 768px){
+    .post{
+        width: 600px;
+    }
+
+    .img{
+        width: 600px; 
+    }
+
+    .inputs{
+        width: 580px;
+    }
+    .markdown{
+        width: 580px;
+    }
+}
+@media (max-width: 600px){
+    .post{
+        width: 500px;
+    }
+    .img{
+        width: 500px;
+    }
+    .inputs{
+        width: 480px;
+    }
+    .markdown{
+        width: 480px;
+    }
+}
+
+@media (max-width: 480px){
+    .post{
+        width: 380px;
+    }
+
+    .img{
+        width: 380px;
+    }
+
+    .inputs{
+        width: 360px;
+    }
+    .markdown{
+        width: 360px;
+    }
+}
+@media (max-width: 320px){
+    .post{
+        width: 300px;
+    }
+
+    .img{
+        width: 300px; 
+    }
+
+    .inputs{
+        width: 280px;
+    }
+    .markdown{
+        width: 280px;
+    }
+}

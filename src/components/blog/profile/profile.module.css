@@ -8,6 +8,7 @@
 }
 .profile{
     font-size: 100px;
+    margin: 0 auto;
 }
 .change{
     cursor: pointer;
@@ -78,4 +79,69 @@
 }
 .home:hover{
     color: red;
+}
+
+
+
+@media (max-width: 991px){
+    .contain{
+        display: flex;
+        /* border: 1px solid red; */
+        width: 850px;
+        margin: 10px auto 0;
+        justify-content: center;
+    }
+    
+}
+
+@media (max-width: 768px){
+    .contain{
+        display: flex;
+        /* border: 1px solid red; */
+        width: 730px;
+        margin: 10px auto 0;
+        justify-content: center;
+    }
+    .posts{
+        width: 440px;
+    }
+}
+
+@media (max-width: 600px){
+    .contain{
+        display: flex;
+        /* border: 1px solid red; */
+        width: 540px;
+        margin: 10px auto 0;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px){
+    .contain{
+        display: flex;
+        /* border: 1px solid red; */
+        width: 400px;
+        margin: 10px auto 0;
+        justify-content: center;
+    }
+    .posts{
+        margin-right: 20px;
+        width: 440px;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 360px){
+    .contain{
+        display: flex;
+        /* border: 1px solid red; */
+        width: 320px;
+        margin: 10px auto 0;
+        justify-content: center;
+    }
+    .posts{
+        margin-right: 20px;
+        width: 330px;
+        margin: 0 auto;
+    }
 }

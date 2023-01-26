@@ -25,7 +25,7 @@ const BlogListItem: React.FC<IProps> = ({id, name, title, userId, views, comment
 
     return(<div className={styles.postItem}>
             {img
-            ? <Link to={`/posts/${id}`}><img className={styles.img} width={750} height={300} src={img}/></Link> 
+            ? <Link to={`/posts/${id}`}><img className={styles.img} src={img}/></Link> 
             :null
             }
             <div className={styles.info}>
