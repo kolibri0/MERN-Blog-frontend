@@ -34,7 +34,7 @@ const BlogForm: React.FC<IProps> = (
     return(<>
         {imgUrl
             ?<>
-              <img className={styles.img} src={`http://localhost:5000${imgUrl}`} />
+              <img className={styles.img} src={ process.env.REACT_APP_URL_REQUEST_IMG + `${imgUrl}`} />
               <button className={styles.delete} onClick={() => removeImgUrl()}>Delete</button>
              </>
             :null}
