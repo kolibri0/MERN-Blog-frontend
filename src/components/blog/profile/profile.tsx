@@ -107,7 +107,7 @@ const Profile: React.FC = () => {
             userId={post.user._id}
             views={post.views}
             comments={post.comments}
-            img={post.imgUrl ? `http://localhost:5000` + post.imgUrl : null}
+            img={post.imgUrl ? REACT_APP_URL_REQUEST_IMG + post.imgUrl : null}
             tags={post.tags}
             colorUser={post.user.color}
         />)}
