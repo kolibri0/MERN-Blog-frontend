@@ -10,7 +10,7 @@ const initialState = {
 export const getAllNote = createAsyncThunk(
     'note/getAllNote',
     async () =>{
-        const res = await axios.get(`http://localhost:5000/note`)
+        const res = await axios.get(`note`)
         return res.data
     }
 )
@@ -18,7 +18,7 @@ export const getAllNote = createAsyncThunk(
 export const getNote = createAsyncThunk(
     'note/getNote',
     async (id) =>{
-        const res = await axios.get(`http://localhost:5000/note/${id}`)
+        const res = await axios.get(`note/${id}`)
         return res.data
     }
 )
@@ -27,7 +27,7 @@ export const createNote = createAsyncThunk(
     'note/createNote',
     async ({text, title}) =>{
         const data = {text, title}
-        const res = await axios.post(`http://localhost:5000/note`, data)
+        const res = await axios.post(`note`, data)
         return res.data
     }
 )
@@ -36,7 +36,7 @@ export const changeNote = createAsyncThunk(
     'note/changeNote',
     async ({id, text, title}) =>{
         const data = {text, title}
-        const res = await axios.patch(`http://localhost:5000/note/${id}`, data)
+        const res = await axios.patch(`note/${id}`, data)
         return res.data
     }
 )
@@ -44,7 +44,7 @@ export const changeNote = createAsyncThunk(
 export const deleteNote = createAsyncThunk(
     'note/deleteNote',
     async (id) =>{
-        const res = await axios.delete(`http://localhost:5000/note/${id}`)
+        const res = await axios.delete(`note/${id}`)
         return res.data
     }
 )

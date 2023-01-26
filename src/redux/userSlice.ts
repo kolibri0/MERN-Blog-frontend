@@ -16,7 +16,7 @@ const initialState: IinitialState = {
 export const registerUser = createAsyncThunk(
     'user/register',
     async (info) =>{
-        const res = await axios.post(`http://localhost:5000/register`, info)
+        const res = await axios.post(`register`, info)
         return res.data
     }
 )
@@ -24,7 +24,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
     'user/login',
     async (info) =>{
-        const res = await axios.post(`http://localhost:5000/login`, info)
+        const res = await axios.post(`login`, info)
         return res.data
     }
 )
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
 export const checkMe = createAsyncThunk(
     'user/checkMe',
     async () =>{
-        const res = await axios.get(`http://localhost:5000/me`)
+        const res = await axios.get(`me`)
         return res.data
     }
 )

@@ -73,7 +73,7 @@ function App() {
               </Link>
               <a onClick={() => logoutUser()} className={styles.logout}>Logout</a> 
             </>
-            :<Link to={"/login"}>Login</Link>
+            :<Link className={styles.logout} to={"/login"}>Login</Link>
             }
           </div>
         </div>

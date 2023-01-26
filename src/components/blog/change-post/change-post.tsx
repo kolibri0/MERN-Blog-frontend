@@ -17,7 +17,7 @@ const ChangePost: React.FC = () => {
 
     React.useEffect(() => {
         const fetchPost = async () => {
-            const {data} = await axios.get(`http://localhost:5000/posts/${id}`)
+            const {data} = await axios.get(`posts/${id}`)
             onChange(data.post.text)
             setTitle(data.post.title)
             setImgUrl(data.post.imgUrl)
@@ -39,7 +39,7 @@ const ChangePost: React.FC = () => {
             const formData = new FormData()
             const file = event.target.files[0] 
             formData.append('image', file)
-            const {data} = await axios.post('http://localhost:5000/uploads', formData)
+            const {data} = await axios.post('uploads', formData)
             setImgUrl(data.url)
         } catch (err) {
             console.warn(err)
@@ -55,7 +55,7 @@ const ChangePost: React.FC = () => {
         tags: tags.length > 0 && checkSpaces(tags) ? tags.trim().split(",") : [],
         imgUrl
       }
-      const {data} = await axios.patch(`http://localhost:5000/posts/${id}`, info)
+      const {data} = await axios.patch(`posts/${id}`, info)
       const _id = data.doc._id
       navigate(`/posts/${_id}`)
     }

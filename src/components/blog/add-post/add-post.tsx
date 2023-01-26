@@ -28,7 +28,7 @@ const AddPost: React.FC = () => {
           const formData = new FormData()
           const file = event.target.files[0] 
           formData.append('image', file)
-          const {data} = await axios.post('http://localhost:5000/uploads', formData)
+          const {data} = await axios.post('uploads', formData)
           setImgUrl(data.url)
       } catch (err) {
           console.warn(err)
@@ -44,7 +44,7 @@ const AddPost: React.FC = () => {
       tags: tags.length > 0 && checkSpaces(tags) ? tags.trim().split(",") : [],
       imgUrl
     }
-    const {data} = await axios.post('http://localhost:5000/posts', info)
+    const {data} = await axios.post('posts', info)
     const id = data.post._id
     navigate(`/posts/${id}`)
   }

@@ -38,7 +38,7 @@ const Post: React.FC = () => {
         
             const fetchPost = async () => {
                 try {
-                    const post = await axios.get(`http://localhost:5000/posts/${id}`)
+                    const post = await axios.get(`posts/${id}`)
                     setPost(post.data.post)
                 } catch (err) {
                     setErrorPost(true)
@@ -50,7 +50,7 @@ const Post: React.FC = () => {
 
     const deletePost = async () => {
         try {
-            const {data} = await axios.delete(`http://localhost:5000/posts/${id}`)
+            const {data} = await axios.delete(`posts/${id}`)
             if(data.success){
                 navigate('/')
             }
@@ -61,7 +61,7 @@ const Post: React.FC = () => {
 
     const getAllComments = async () => {
         try {
-          const comments = await axios.get(`http://localhost:5000/comments/${id}`)
+          const comments = await axios.get(`comments/${id}`)
             setComments(comments.data.list.reverse())  
         } catch (err) {
             alert("We can't get comments for this post :(")
@@ -71,7 +71,7 @@ const Post: React.FC = () => {
 
     const createComment = async () => {
         try {
-            const {data} = await axios.post(`http://localhost:5000/comments/${id}`, {text: commentText})
+            const {data} = await axios.post(`comments/${id}`, {text: commentText})
             if(data.success){
                 getAllComments()
                 setCommentText('')
@@ -84,7 +84,7 @@ const Post: React.FC = () => {
 
     const removeComment = async (commentId: string) =>{
         try {
-            const {data} = await axios.delete(`http://localhost:5000/posts/${id}/comments/${commentId}`)
+            const {data} = await axios.delete(`posts/${id}/comments/${commentId}`)
                 if(data.success){
                 getAllComments()
             }
@@ -96,7 +96,7 @@ const Post: React.FC = () => {
 
     const changeComment = async () =>{
         try {
-            const {data} = await axios.patch(`http://localhost:5000/comments/${idChange}`, {text: commentText})
+            const {data} = await axios.patch(`comments/${idChange}`, {text: commentText})
             if(data.success){
                getAllComments()
                setChange(false)
@@ -142,7 +142,7 @@ const Post: React.FC = () => {
     return(<>{post
     ?<><div className={styles.post}>
             {post.imgUrl
-            ?<img className={styles.img}  src={`http://localhost:5000` + post.imgUrl} alt={'Post'}/> 
+            ?<img className={styles.img}  src={process.env.REACT_APP_URL_REQUEST_IMG + post.imgUrl} alt={'Post'}/> 
             :null
             }
             <div className={styles.info}>

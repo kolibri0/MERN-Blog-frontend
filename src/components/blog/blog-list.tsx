@@ -67,7 +67,7 @@ const BlogList: React.FC = () => {
                     userId={post.user._id}
                     views={post.views}
                     comments={post.comments}
-                    img={post.imgUrl ? `http://localhost:5000` + post.imgUrl : null}
+                    img={post.imgUrl ? process.env.REACT_APP_URL_REQUEST_IMG + post.imgUrl : null}
                     tags={post.tags}
                     getByTag={getByTag}
                     colorUser={post.user.color}

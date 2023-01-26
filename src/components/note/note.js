@@ -45,7 +45,7 @@ const Note = () => {
                 )): null}
         
         </div>
-
+  
     </div>
     )
 }
