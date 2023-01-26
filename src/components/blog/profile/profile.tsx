@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
     const colorOption: string[] = ["blue", "green", "red", "orange", "violet", "indigo", "yellow", "gray"]
 
     const fetchUser = async () => {
-        const user = await axios.get(`http://localhost:5000/user/${id}`)
+        const user = await axios.get(`user/${id}`)
         setUser(user.data) 
         setName(user.data.name)
     }
@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
             name,
             color
         }
-        const userRes = await axios.patch(`http://localhost:5000/user/${id}`, data)
+        const userRes = await axios.patch(`user/${id}`, data)
         if(userRes.data.success){
             fetchUser()
         }
