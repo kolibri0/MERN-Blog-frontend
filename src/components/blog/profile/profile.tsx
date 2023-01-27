@@ -12,12 +12,13 @@ import Alert from 'react-bootstrap/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { IUser } from '../../../Interface/IUser'
+import Spiner from '../../../utils/Loader'
 
 const Profile: React.FC = () => {
     const {id} = useParams()
     const dispatch = useAppDispatch()
     const me = useAppSelector(state => state.userSlice.user)
-    const {posts, error} = useAppSelector(state => state.postSlice)
+    const {posts, error, loading} = useAppSelector(state => state.postSlice)
     const [user, setUser] = React.useState<IUser | null>(null)
     const [color, setColor] = React.useState<string>('')
     const [name, setName] = React.useState<string>('')
@@ -97,7 +98,7 @@ const Profile: React.FC = () => {
         :null}
     </div>
     
-    {user && posts 
+    {user && posts && !loading
     ?<div className={styles.posts}>
         <div className={styles.h2}>User posts</div>
         {posts.map((post) => <BlogListItem key={post._id}
@@ -112,7 +113,9 @@ const Profile: React.FC = () => {
             colorUser={post.user.color}
         />)}
     </div>
-    :null} </>)
+    : <div className={styles.posts}>{[...new Array(4)].map(() => <Spiner />)}</div>
+    }
+    </>)
 
 }
 

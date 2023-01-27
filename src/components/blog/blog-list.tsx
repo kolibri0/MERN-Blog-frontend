@@ -10,12 +10,13 @@ import { useNavigate, useParams, Link} from 'react-router-dom'
 import styles from './blog.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import Spiner from '../../utils/Loader';
 
 const BlogList: React.FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const {tag} = useParams()
-    const {posts, tags, error} = useAppSelector(state => state.postSlice)
+    const {posts, tags, error, loading} = useAppSelector(state => state.postSlice)
     const [count, setCount] = useState<number>(10)
 
     useEffect(() => {
@@ -59,7 +60,7 @@ const BlogList: React.FC = () => {
 
         <div className={styles.content}>
             <div className={styles.posts}>{
-                posts
+                posts && !loading
                 ? posts.map((post) => <BlogListItem key={post._id}
                     title={post.title} 
                     name={post.user.name} 
@@ -72,7 +73,7 @@ const BlogList: React.FC = () => {
                     getByTag={getByTag}
                     colorUser={post.user.color}
                     />)
-                : null
+                : [...new Array(4)].map(() => <Spiner />)
             }</div>
             <div className={styles.tags}>
             <div className={styles.tagH2}>Tags</div>

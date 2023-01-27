@@ -6,13 +6,15 @@ import { IPost } from '../Interface/IPost'
 interface IinitialState{
     posts: IPost[] | [],
     tags: string[],
-    error: boolean
+    error: boolean,
+    loading: boolean
 }
 
 const initialState: IinitialState = {
     posts: [],
     tags: [],
-    error: false
+    error: false,
+    loading: true
 }
 
 export const getAllPosts = createAsyncThunk(
@@ -74,9 +76,11 @@ const postSlice = createSlice({
         builder.addCase(getAllPosts.pending, (state, action) =>{
             state.error = false
             state.posts = []
+            state.loading = true
         })
         builder.addCase(getAllPosts.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
+            state.loading = false
         })
         builder.addCase(getAllPosts.rejected, (state, action) =>{
             state.error = true
@@ -85,9 +89,12 @@ const postSlice = createSlice({
         builder.addCase(getPostsByTags.pending, (state, action) =>{
             state.error = false
             state.posts = []
+            state.loading = true
         })
         builder.addCase(getPostsByTags.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
+            state.loading = false
+            state.loading = false
         })
         builder.addCase(getPostsByTags.rejected, (state, action) =>{
             state.error = true
@@ -96,9 +103,11 @@ const postSlice = createSlice({
         builder.addCase(getUserPosts.pending, (state, action) =>{
             state.error = false
             state.posts = []
+            state.loading = true
         })
         builder.addCase(getUserPosts.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
+            state.loading = false
         })
         builder.addCase(getUserPosts.rejected, (state, action) =>{
             state.error = true
@@ -107,9 +116,11 @@ const postSlice = createSlice({
         builder.addCase(getNewPosts.pending, (state, action) =>{
             state.error = false
             state.posts = []
+            state.loading = true
         })
         builder.addCase(getNewPosts.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
+            state.loading = false
         })
         builder.addCase(getNewPosts.rejected, (state, action) =>{
             state.error = true
@@ -118,9 +129,11 @@ const postSlice = createSlice({
         builder.addCase(getPopularPosts.pending, (state, action) =>{
             state.error = false
             state.posts = []
+            state.loading = true
         })
         builder.addCase(getPopularPosts.fulfilled, (state, action) =>{
             state.posts = action.payload.posts
+            state.loading = false
         })
         builder.addCase(getPopularPosts.rejected, (state, action) =>{
             state.error = true
