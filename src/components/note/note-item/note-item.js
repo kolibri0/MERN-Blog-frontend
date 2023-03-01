@@ -11,7 +11,7 @@ const NoteItem = () => {
     const navigate = useNavigate()
     const {id} = useParams()
     const dispatch = useDispatch()
-    const {noteItem, showModal} = useSelector(state => state.noteSlice)
+    const {noteItem } = useSelector(state => state.noteSlice)
 
     const cancel = () => {
         navigate('/note')

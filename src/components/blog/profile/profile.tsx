@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../../../axios'
+import axios from '../../../../components/axios'
 import {Link, useParams} from "react-router-dom"
 import { CgProfile } from 'react-icons/cg'
 import {RiEdit2Line } from 'react-icons/ri'

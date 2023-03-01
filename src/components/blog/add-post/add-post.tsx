@@ -1,5 +1,5 @@
 import React from "react";
-import axios from '../../../axios'
+import axios from '../../../../components/axios'
 import {useNavigate} from 'react-router-dom'
 
 import "easymde/dist/easymde.min.css";

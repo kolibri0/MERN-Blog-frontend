@@ -1,5 +1,5 @@
 import React from "react";
-import axios from '../../../axios'
+import axios from '../../../../components/axios'
 import { useNavigate, useParams } from "react-router-dom";
 
 import styles from '../add-post/add.module.css'
@@ -55,7 +55,7 @@ const ChangePost: React.FC = () => {
         tags: tags.length > 0 && checkSpaces(tags) ? tags.trim().split(",") : [],
         imgUrl
       }
-      const {data} = await axios.patch(`posts/${id}`, info)
+      const {data} = await axios.patch(`/posts/${id}`, info)
       const _id = data.doc._id
       navigate(`/posts/${_id}`)
     }
