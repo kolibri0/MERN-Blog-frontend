@@ -55,7 +55,7 @@ const noteSlice = createSlice({
             state.note.push(action.payload.note)
         })
         builder.addCase(changeNote.fulfilled, (state, action) =>{
-            console.log(action.payload)
+            
         })
         builder.addCase(deleteNote.fulfilled, (state, action) =>{
             state.note = action.payload.note

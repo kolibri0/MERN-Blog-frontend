@@ -1,5 +1,4 @@
 import {useRouter} from 'next/router'
-import { useState, useEffect } from 'react'
 import {useDispatch} from 'react-redux'
 import axios from '../../../components/axios'
 import styles from '../../../styles/note.module.css'
@@ -23,10 +22,12 @@ const NoteItem = ({note}) => {
     return(
         <div className={styles.addForm}>
         {note ?<>
-            <div className={styles.title}>{
+            <div className={styles.title}>
+            {
             note.title?.length > 70
                 ? note.title.slice(0,70) + '...'
-                : note.title}
+                : note.title
+            }
             </div> 
             <RiEdit2Line className={styles.edit} onClick={() => editNote()}/>
             <div className={styles.hr}/>
@@ -38,13 +39,10 @@ const NoteItem = ({note}) => {
     </div>
     )
 }
- 
 export default NoteItem;
-
 
 export async function getServerSideProps({query}) {
     const note = await axios.get(`/note/${query.id}`)
-
     return {
       props: {
         note: note.data.note,

@@ -8,8 +8,6 @@ import styles from '../../styles/note.module.css'
 import { useEffect } from 'react'
 import { getAllNote, deleteNote } from '../../redux/note'
 
-
-
 const Note = () => {
     const dispatch = useDispatch()
     const router = useRouter()

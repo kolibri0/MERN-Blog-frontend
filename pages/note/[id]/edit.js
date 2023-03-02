@@ -12,13 +12,9 @@ const EditNote = ({note}) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
 
-    const cancel = () => {
-        navigate('/note')
-    }
+    const cancel = () => router.push(`/note`)
 
-    const change = () => {
-        dispatch(changeNote({id, text, title})).then(() => router.push('/note'))
-    }
+    const change = () => dispatch(changeNote({id, text, title})).then(() => router.push('/note'))
 
     useEffect(() => {
         setTitle(note?.title)
@@ -37,13 +33,10 @@ const EditNote = ({note}) => {
         </div>
         )
 }
- 
 export default EditNote;
-
 
 export async function getServerSideProps({query}) {
     const note = await axios.get(`/note/${query.id}`)
-
     return {
       props: {
         note: note.data.note,

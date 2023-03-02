@@ -23,9 +23,7 @@ const Login = () => {
        router.push('/')    
     }
 
-    const userLogin = (data) => {
-        dispatch(loginUser(data))
-    }
+    const userLogin = (data) => dispatch(loginUser(data))
 
     return(
     <div className={styles.auth}>

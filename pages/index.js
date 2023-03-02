@@ -2,27 +2,22 @@ import BlockItem from '../components/BlogItem';
 import axios from '../components/axios'
 import styles from '../styles/blog.module.css'
 import { useRouter } from 'next/router'
+import Categories from '../components/Categories';
+import Tags from '../components/Tags';
 
 const Posts = ({posts, tags}) => {
-
     const router = useRouter()
-
     const getByTag = (tag) =>  router.push(`?tag=${tag}`)
-
-    const getByType = (type) => router.push(`?type=${type}`)
+    const getByType = (type) => type ? router.push(`?type=${type}`) : router.push(``)
 
     return (
     <div className={styles.container}>
-        <div className={styles.category}>
-            <div className={styles.categoryItem} onClick={() => getByType('')}>None</div>
-            <div className={styles.categoryItem} onClick={() => getByType('new')}>New</div>
-            <div className={styles.categoryItem} onClick={() => getByType('popular')}>Popular</div>
-            
-        </div>
+
+        <Categories getByType={getByType} />
 
         <div className={styles.content}>
-            <div className={styles.posts}>{
-                posts
+            <div className={styles.posts}>
+                {posts
                 ? posts.map((post) => <BlockItem key={post._id}
                     title={post.title} 
                     name={post.user.name} 
@@ -36,13 +31,12 @@ const Posts = ({posts, tags}) => {
                     colorUser={post.user.color}
                     />)
                 : null
-            }</div>
-            <div className={styles.tags}>
-            <div className={styles.tagH2}>Tags</div>
-            {tags 
-            ? tags.map((tagItem) => <div className={styles.tag} onClick={() => getByTag(tagItem)}>#{tagItem}</div>)
-            : null}
+                }
             </div>
+            <div className={styles.tags}>
+                <Tags tags={tags} getByTag={getByTag} styles={styles}/> 
+            </div>
+            
         </div>
     </div>);
 }

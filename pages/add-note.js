@@ -4,9 +4,6 @@ import { useDispatch } from "react-redux"
 import { createNote, changeNote } from "../redux/note"
 import styles from '../styles/note.module.css'
 
-
-
-
 const AddNote = () => {
     const dispatch = useDispatch()
     const router = useRouter()
@@ -29,9 +26,6 @@ const AddNote = () => {
     const change = () => dispatch(changeNote({id, text, title})).then(() => router.push(`/note`))
 
     const cancel = () => router.push(`/note`)
-
-
-
 
     return(
         <div className={styles.addForm}>

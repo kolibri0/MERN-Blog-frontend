@@ -7,8 +7,6 @@ import { registerUser } from "../redux/auth";
 import styles from '../styles/auth.module.css'
 import 'react-tooltip/dist/react-tooltip.css'
 
-
-
 const SignIn = () => {
     const dispatch = useDispatch()
     const {
@@ -17,9 +15,7 @@ const SignIn = () => {
         handleSubmit,
     } = useForm()
 
-    const userRegister = (data) => {
-        dispatch(registerUser(data))
-    }
+    const userRegister = (data) => dispatch(registerUser(data))
 
     return(
     <div className={styles.auth}>

@@ -7,7 +7,6 @@ import BlogForm from "../../../components/BlogForm";
 const EditPost = ({post}) => {
   const router = useRouter()
   const {id} = router.query
-  console.log(id)
   const inputFileRef = useRef(null)
   const [text, setText] = useState('');
   const [imgUrl, setImgUrl] = useState('')
@@ -15,12 +14,10 @@ const EditPost = ({post}) => {
   const [tags, setTags] = useState('');
 
   useEffect(() => {
-
     onChange(post.text)
     setTitle(post.title)
     setImgUrl(post.imgUrl)
     setTags(post.tags.join())
-
   },[])   
   
   const changedInput = async (event) => {
@@ -54,7 +51,6 @@ const EditPost = ({post}) => {
     router.push(`/posts/${_id}`)
   }
 
-
     return (<div className={styles.post}>
         <BlogForm 
         onSubmit={onSubmit}
@@ -71,13 +67,10 @@ const EditPost = ({post}) => {
         />
     </div>);
 }
- 
 export default EditPost;
-
 
 export async function getServerSideProps({query}) {
     const post = await axios.get(`/posts/${query.id}`)
-
     return {
       props: {
         post: post.data.post
