@@ -8,7 +8,7 @@ const initialState = {
 
 export const deletePost = createAsyncThunk(
     'posts/deletePost',
-    async (postId) =>{
+    async (postId: string) =>{
         const res = await axios.delete(`/posts/${postId}`)
         return res.data
     }

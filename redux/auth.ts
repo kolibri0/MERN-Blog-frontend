@@ -1,14 +1,22 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../components/axios'
+import { RootState } from './store'
+import {IUser} from '../Interface/IUser'
+import { IAuth } from '../Interface/IFunctionProps'
 
-const initialState = {
+interface IInitialState{
+    user: null | IUser,
+    error: null | Boolean
+}
+
+const initialState: IInitialState = {
     user: null,
     error: null 
 }
 
 export const registerUser = createAsyncThunk(
     'user/register',
-    async (info) =>{
+    async (info: IAuth) =>{
         const res = await axios.post(`/register`, info)
         return res.data
     }
@@ -16,7 +24,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
     'user/login',
-    async (info) =>{
+    async (info: IAuth) =>{
         const res = await axios.post(`/login`, info)
         return res.data
     }
@@ -30,14 +38,11 @@ export const checkMe = createAsyncThunk(
     }
 )
 
-
-
-
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        logout(state, action){
+        logout(state, action: PayloadAction<null>){
             state.user = action.payload
             window.localStorage.removeItem('token')
         }
@@ -50,7 +55,6 @@ const userSlice = createSlice({
         })
         builder.addCase(registerUser.rejected, (state, action) =>{
             state.error = true
-            console.log(state.error)
         })
         //---------------------------------------------------------------------
         builder.addCase(loginUser.fulfilled, (state, action) =>{
@@ -72,6 +76,6 @@ const userSlice = createSlice({
 })
 
 
-export const userAuthSelector = (state) => Boolean(state.userSlice.user)
+export const userAuthSelector = (state: RootState) => Boolean(state.userSlice.user)
 export const {logout} = userSlice.actions
 export default userSlice.reducer

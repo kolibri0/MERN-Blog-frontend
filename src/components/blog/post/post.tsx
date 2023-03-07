@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import styles from './post.module.css'
 import { useAppDispatch, useAppSelector } from "../../../redux/hook"
-import { IComment, IPost } from "../../../Interface/IPost"
+import { IComment, IPost } from "../../../../Interface/IPost"
 
 
 const Post: React.FC = () => {

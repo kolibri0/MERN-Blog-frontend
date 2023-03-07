@@ -1,37 +1,30 @@
 import { useForm } from "react-hook-form";
-import Link from "next/link";
-import {useRouter} from 'next/router'
-import { AiOutlineExclamation} from 'react-icons/ai'
 import { Tooltip } from 'react-tooltip'
-import { useDispatch, useSelector } from 'react-redux'
-
+import { AiOutlineExclamation} from 'react-icons/ai'
+import { registerUser } from "../redux/auth";
+import '../types'
 import styles from '../styles/auth.module.css'
 import 'react-tooltip/dist/react-tooltip.css'
-import { loginUser, userAuthSelector } from "../redux/auth";
+import { useAppDispatch } from '../redux/hook'
+import * as React from 'react';
 
-const Login = () => {
-    const dispatch = useDispatch()
-    const router = useRouter()
-    const user = useSelector(userAuthSelector)
+const SignIn: React.FC = () => {
+    const dispatch = useAppDispatch()
     const {
         register,
         formState: {errors},
         handleSubmit,
     } = useForm()
 
-    if(user){
-       router.push('/')    
-    }
-
-    const userLogin = (data) => dispatch(loginUser(data))
+    const userRegister = (data: any) => dispatch(registerUser(data))
 
     return(
     <div className={styles.auth}>
-        <div className={styles.containText}>Login</div>
-        <form className={styles.form} onSubmit={handleSubmit(userLogin)}>
+        <div className={styles.containText}>Create account</div>
+        <form className={styles.form} onSubmit={handleSubmit(userRegister)}>
             <label className={styles.label}>
                 <input className={styles.input} {...register("email", {
-                required: 'Field required',
+                required: 'Поле обязательно',
                 pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: "Invalid email address"
@@ -63,12 +56,28 @@ const Login = () => {
                 />: null}
             </label>
 
-            <input className={styles.submit} type='submit' value="Login"/>
-            <Link className={styles.account} href='/register'>Register?</Link>    
+            <label className={styles.label}>
+                <input className={styles.input} {...register("name", {
+                    required: 'Field required',
+                    minLength:{
+                        value: 3,
+                        message: "Min 3 characters"
+                    }
+                })} placeholder='name...'/>
+                {errors.name ? <div className={styles.icon} id='name'><AiOutlineExclamation /></div> : null}
+
+                {errors.name? 
+                <Tooltip 
+                anchorId="name" 
+                content={errors?.name.message} 
+                style={{backgroundColor: 'red'}} 
+                />: null}
+            </label>
             
+            <input className={styles.submit} type='submit'  value="Submit"/>
         </form>
     </div>
     )
 }
 
-export default Login
+export default SignIn

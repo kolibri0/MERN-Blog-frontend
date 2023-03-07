@@ -1,13 +1,13 @@
 import { IUser } from "./IUser"
 
 export interface IPost{
-    _id: number,
+    _id: string,
     title: string,
     text: string,
     user: IUser,
-    tags?: string[],
+    tags?: string[] | [],
     imgUrl?: string,
-    comments: IComment[],
+    comments: IComment[] | [],
     views: number
 }
 

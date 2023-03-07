@@ -2,25 +2,33 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import {useRouter} from 'next/router'
 import axios from '../../../components/axios'
 import styles from '../../../styles/add.module.css'
+import '../../../types'
+import * as React from 'react';
 import BlogForm from "../../../components/BlogForm";
+import { IPost } from '../../../Interface/IPost'
+import { GetServerSideProps } from "next/types";
 
-const EditPost = ({post}) => {
+interface IProps{
+  post: IPost
+}
+
+const EditPost: React.FC<IProps> = ({post}) => {
   const router = useRouter()
   const {id} = router.query
-  const inputFileRef = useRef(null)
-  const [text, setText] = useState('');
-  const [imgUrl, setImgUrl] = useState('')
-  const [title, setTitle] = useState('');
-  const [tags, setTags] = useState('');
+  const inputFileRef = useRef<HTMLInputElement>(null)
+  const [text, setText] = useState<string>('');
+  const [imgUrl, setImgUrl] = useState<string>('')
+  const [title, setTitle] = useState<string>('');
+  const [tags, setTags] = useState<string>('');
 
   useEffect(() => {
     onChange(post.text)
     setTitle(post.title)
-    setImgUrl(post.imgUrl)
-    setTags(post.tags.join())
+    setImgUrl(post.imgUrl as string)
+    if(post.tags)setTags(post.tags.join())
   },[])   
   
-  const changedInput = async (event) => {
+  const changedInput = async (event: any) => {
     try {
         const formData = new FormData()
         const file = event.target.files[0] 
@@ -32,14 +40,14 @@ const EditPost = ({post}) => {
         alert('File upload error')
     }
   }
-  const onChange = useCallback((text) => {
+  const onChange = useCallback((text: string) => {
     setText(text);
   }, []);
 
   const removeImgUrl = () => setImgUrl('')
 
   const onSubmit = async () => {
-    const checkSpaces = (str) => str.trim() !== ''
+    const checkSpaces = (str: string) => str.trim() !== ''
     const info = {
       title,
       text,
@@ -47,7 +55,7 @@ const EditPost = ({post}) => {
       imgUrl
     }
     const {data} = await axios.patch(`/posts/${id}`, info)
-    const _id = data.doc._id
+    const _id: string = data.doc._id
     router.push(`/posts/${_id}`)
   }
 
@@ -69,7 +77,7 @@ const EditPost = ({post}) => {
 }
 export default EditPost;
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps:GetServerSideProps = async ({query}) => {
     const post = await axios.get(`/posts/${query.id}`)
     return {
       props: {

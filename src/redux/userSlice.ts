@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../axios'
-import { IUser } from '../Interface/IUser'
+import { IUser } from '../../Interface/IUser'
 import { RootState } from './store'
 
 interface IinitialState{

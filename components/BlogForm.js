@@ -10,7 +10,6 @@ const BlogForm = (
     {onSubmit, text, title, setTitle, imgUrl, removeImgUrl, inputFileRef, onChange, changedInput, tags, setTags}
 ) => {
     
-    
     const autofocusNoSpellcheckerOptions = React.useMemo(() => {
         return {
             autofocus: true,

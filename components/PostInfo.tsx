@@ -3,14 +3,17 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import * as React from 'react';
+
 import { CgProfile } from 'react-icons/cg'
 import { AiOutlineEye } from 'react-icons/ai'
 import { BiComment } from 'react-icons/bi'
 import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
 
 import Link from 'next/link'
+import { IPostInfo } from '../Interface/IProps';
 
-const PostInfo = ({post, getByTag, back, removePost, user}) => {
+const PostInfo: React.FC<IPostInfo> = ({post, getByTag, back, removePost, user, redirectToEdit}) => {
     return ( 
     <>
     <div><CgProfile className={styles.person} style={{color: `${post.user.color}`}}/></div>
@@ -19,7 +22,7 @@ const PostInfo = ({post, getByTag, back, removePost, user}) => {
         <div className={styles.title}>{post.title}</div>
         {
         post?.tags !== undefined && post.tags.length
-          ? post.tags.map((tag) => <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p>)
+          ? post.tags.map((tag: string) => <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p>)
           : null
         }
         <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{post.text}</ReactMarkdown>
@@ -32,7 +35,7 @@ const PostInfo = ({post, getByTag, back, removePost, user}) => {
         user && user._id === post.user._id
         ?<>
             <RiDeleteBin6Line  className={styles.deletePost} onClick={() => removePost()}/>
-            <RiEdit2Line className={styles.changePost} onClick={() => router.push(`/posts/${postId}/edit`)}/>
+            <RiEdit2Line className={styles.changePost} onClick={() => redirectToEdit()}/>
         </>
         :null}
     </div>

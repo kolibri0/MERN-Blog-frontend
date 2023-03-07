@@ -19,13 +19,19 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    // "jsx": "react-jsx",
     "incremental": true
   },
   "include": [
     "src",
-    "src/@types"
-, "components/axios.js", "components/axios.js"  ],
+    "src/@types",
+    "./types.d.ts",
+    "components/axios.js", 
+    "components/axios.js", 
+    "Interface", 
+    ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./types.d.ts",
   ]
 }

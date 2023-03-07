@@ -3,8 +3,11 @@ import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
 
 import Link from 'next/link'
 import styles from '../styles/post.module.css'
+import '../types'
+import React from 'react'
+import { ICommentItem } from '../Interface/IProps'
 
-const CommentItem = ({comment, removeComment, middlewareChangeComment, user}) => {
+const CommentItem: React.FC<ICommentItem> = ({comment, removeComment, middlewareChangeComment, user}) => {
     return ( 
     <div className={styles.commentItem} key={comment._id}>
         <div className={styles.commentPerson}>

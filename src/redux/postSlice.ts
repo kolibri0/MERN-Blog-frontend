@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../axios'
-import { IPost } from '../Interface/IPost'
+import { IPost } from '../../Interface/IPost'
 
 
 interface IinitialState{

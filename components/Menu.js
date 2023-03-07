@@ -15,11 +15,11 @@ const Menu = () => {
     const dispatch = useDispatch()
     const {user} = useSelector(state => state.userSlice)
 
-    useEffect(() => {
-        if(window.localStorage.getItem('token')){
-          dispatch(checkMe())
-        }
-      }, [])
+    // useEffect(() => {
+    //     if(window.localStorage.getItem('token')){
+    //       dispatch(checkMe())
+    //     }
+    //   }, [])
 
     const logoutUser = () => dispatch(logout()) 
 

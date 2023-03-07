@@ -11,7 +11,7 @@ import { getUserPosts } from '../../../redux/postSlice'
 import Alert from 'react-bootstrap/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { IUser } from '../../../Interface/IUser'
+import { IUser } from '../../../../Interface/IUser'
 import Spiner from '../../../utils/Loader'
 
 const Profile: React.FC = () => {

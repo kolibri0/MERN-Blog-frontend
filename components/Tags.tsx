@@ -1,4 +1,6 @@
-const Tags = ({tags, getByTag, styles}) => {
+import * as React from 'react';
+import { ITag } from '../Interface/IProps'
+const Tags: React.FC<ITag> = ({tags, getByTag, styles}) => {
     return ( 
     <>
         <div className={styles.tagH2}>Tags</div>

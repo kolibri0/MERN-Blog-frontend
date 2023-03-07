@@ -1,9 +1,12 @@
 import axios from '../../../components/axios'
 import styles from '../../../styles/post.module.css'
+import '../../../types'
+import * as React from 'react';
+import { IPost, IComment} from '../../../Interface/IPost'
 
 import { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
+import { useAppSelector, useAppDispatch } from '../../../redux/hook'
+import { NextRouter, useRouter } from 'next/router'
 
 import { CgProfile } from 'react-icons/cg'
 
@@ -13,19 +16,25 @@ import { createComment, deleteComment, editComment } from '../../../redux/commen
 import PostBtns from '../../../components/PostBtns'
 import CommentItem from '../../../components/CommentItem'
 import PostInfo from '../../../components/PostInfo'
+import { GetServerSideProps } from 'next/types';
 
-const Post = ({post, comments}) => {
-    const dispatch = useDispatch()
-    const router = useRouter()
-    const textInput = useRef(null)
-    const {user} = useSelector(state => state.userSlice)
-    const [postId, setPostId] = useState('')
-    const [commentText, setCommentText] = useState('')
-    const [change, setChange] = useState(false)
-    const [idChange, setIdChange] = useState(null)
+interface IComponent{
+    post: IPost,
+    comments: IComment[]
+}
+
+const Post: React.FC<IComponent> = ({post, comments}) => {
+    const dispatch = useAppDispatch()
+    const router: NextRouter = useRouter()
+    const textInput = useRef<any>(null)
+    const {user} = useAppSelector(state => state.userSlice)
+    const [postId, setPostId] = useState<string>('')
+    const [commentText, setCommentText] = useState<string>('')
+    const [change, setChange] = useState<boolean>(false)
+    const [idChange, setIdChange] = useState<string>('')
     
     useEffect(() => {
-        setPostId(router.query.id)
+        setPostId(router.query.id as string)
     }, [])
 
     const removePost = async () => {
@@ -39,7 +48,7 @@ const Post = ({post, comments}) => {
         setCommentText('')
     }
 
-    const middlewareChangeComment = (id, text) => {
+    const middlewareChangeComment = (id: string, text: string) => {
         setChange(true)
         setIdChange(id)
         setCommentText(text)
@@ -57,12 +66,12 @@ const Post = ({post, comments}) => {
 
     const afterChange = () => {
         setChange(false)
-        setIdChange(null)
+        setIdChange('')
         setCommentText('')
         router.push(`/posts/${postId}`)
     }
 
-    const removeComment = async (commentId) => {
+    const removeComment = async (commentId: string) => {
         //without await not work 'if'
         const res = await dispatch(deleteComment({postId, commentId}))
         if(res.payload?.success)router.push(`/posts/${postId}`)
@@ -70,12 +79,13 @@ const Post = ({post, comments}) => {
 
     const cancel = () => {
         setChange(false)
-        setIdChange(null)
+        setIdChange('')
         setCommentText('')
     }
 
-    const getByTag = (tag) => router.push(`/?tag=${tag}`)
+    const getByTag = (tag: string) => router.push(`/?tag=${tag}`)
     const back = () => router.push(`/`)
+    const redirectToEdit = () => router.push(`/posts/${postId}/edit`)
 
     return(<>{post
         ?<><div className={styles.post}>
@@ -90,6 +100,7 @@ const Post = ({post, comments}) => {
                 getByTag={getByTag}
                 post={post}
                 back={back}
+                redirectToEdit={redirectToEdit}
                 />
             </div>
         </div>
@@ -100,7 +111,13 @@ const Post = ({post, comments}) => {
                 <input className={styles.Input}   ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)}/>
             </div> 
     
-            <PostBtns commentText={commentText} change={change} addComment={addComment} cancel={cancel} changeComment={changeComment} />
+            <PostBtns 
+            commentText={commentText} 
+            change={change} 
+            addComment={addComment} 
+            cancel={cancel} 
+            changeComment={changeComment} 
+            />
     
             {post && comments.length 
             ? comments.map((comment) => 
@@ -120,7 +137,7 @@ const Post = ({post, comments}) => {
 }
 export default Post;
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps:GetServerSideProps = async ({query}) => {
     const post = await axios.get(`/posts/${query.id}`)
     const comments = await axios.get(`/comments/${query.id}`)
     return {
