@@ -2,7 +2,11 @@ import styles from '../styles/blog.module.css'
 import React from 'react';
 import '../types'
 
-const Categories: React.FC<any> = ({getByType}) => {
+interface IProps{
+  getByType: (type: string) => Promise<boolean>
+}
+
+const Categories: React.FC<IProps> = ({getByType}) => {
     return ( 
     <div className={styles.category}>
         <div className={styles.categoryItem} onClick={() => getByType('')}>None</div>

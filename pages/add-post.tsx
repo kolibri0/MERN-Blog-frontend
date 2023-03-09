@@ -1,5 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import styles from '../styles/add.module.css'
+import '../types'
 import BlogForm from '../components/BlogForm'
 import axios from '../components/axios'
 import { useRouter } from 'next/router'
@@ -7,16 +8,18 @@ import { useRouter } from 'next/router'
 const AddPost = () => {
   const router = useRouter()
   const inputFileRef = React.useRef(null)
-  const [text, setText] = React.useState("");
-  const [imgUrl, setImgUrl] = React.useState("")
-  const [title, setTitle] = React.useState("");
-  const [tags, setTags] = React.useState("");
+  const [text, setText] = React.useState<string>("");
+  const [imgUrl, setImgUrl] = React.useState<string>("")
+  const [title, setTitle] = React.useState<string>("");
+  const [tags, setTags] = React.useState<string>("");
 
-  const onChange = React.useCallback((text) => { setText(text) }, []);
+  const onChange = React.useCallback((text: string) => { 
+    setText(text) 
+  }, []);
 
-  const removeImgUrl = () => setImgUrl('')
+  const removeImgUrl = (): void => setImgUrl('')
 
-  const changedInput = async (event) => {
+  const changedInput = async (event: any) => {
     try {
         const formData = new FormData()
         const file = event.target.files[0] 
@@ -30,7 +33,7 @@ const AddPost = () => {
   } 
     
   const onSubmit = async () => {
-    const checkSpaces = (str) => str.trim() !== ''
+    const checkSpaces = (str: string) => str.trim() !== ''
     const info = {
       title,
       text,
@@ -38,7 +41,7 @@ const AddPost = () => {
       imgUrl
     }
     const {data} = await axios.post('posts', info)
-    const id = data.post._id
+    const id: string = data.post._id
     router.push(`/posts/${id}`)
   }
 

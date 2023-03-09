@@ -1,30 +1,38 @@
 import {useRouter} from 'next/router'
-import {useDispatch} from 'react-redux'
+import {useAppDispatch} from '../../../redux/hook'
 import axios from '../../../components/axios'
 import styles from '../../../styles/note.module.css'
+import '../../../types'
 import {deleteNote} from '../../../redux/note'
 import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
+import * as React from 'react';
+import { GetServerSideProps } from 'next/types'
+import { INote } from '../../../Interface/INote'
 
-const NoteItem = ({note}) => {
+interface IProps{
+  note: INote
+}
+
+const NoteItem: React.FC<IProps> = ({note}) => {
     const router = useRouter()
     const {id} = router.query
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const cancel = () => router.push(`/note`)
+    const cancel = (): Promise<boolean> => router.push(`/note`)
 
-    const remove = (id) => {
-        dispatch(deleteNote(id))
-        router.push(`/note`)
+    const remove = (id: string): void => {
+      dispatch(deleteNote(id))
+      router.push(`/note`)
     }
 
-    const editNote = () => router.push(`${id}/edit`)
+    const editNote = (): Promise<boolean> => router.push(`${id}/edit`)
 
     return(
         <div className={styles.addForm}>
         {note ?<>
             <div className={styles.title}>
             {
-            note.title?.length > 70
+              note.title?.length > 70
                 ? note.title.slice(0,70) + '...'
                 : note.title
             }
@@ -41,7 +49,7 @@ const NoteItem = ({note}) => {
 }
 export default NoteItem;
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps:GetServerSideProps = async ({query}) => {
     const note = await axios.get(`/note/${query.id}`)
     return {
       props: {

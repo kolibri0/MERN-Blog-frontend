@@ -1,9 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../components/axios'
+import { INote, IchangeNote, IcreateNote } from '../Interface/INote'
 
+interface IInitialState{
+  note: INote[] | null
+}
 
-const initialState = {
-    note: [],
+const initialState: IInitialState = {
+    note: null,
 }
 
 export const getAllNote = createAsyncThunk(
@@ -16,7 +20,7 @@ export const getAllNote = createAsyncThunk(
 
 export const createNote = createAsyncThunk(
     'note/createNote',
-    async ({text, title}) =>{
+    async ({text, title}: IcreateNote) =>{
         const data = {text, title}
         const res = await axios.post(`/note`, data)
         return res.data
@@ -25,7 +29,7 @@ export const createNote = createAsyncThunk(
 
 export const changeNote = createAsyncThunk(
     'note/changeNote',
-    async ({id, text, title}) =>{
+    async ({id, text, title}: IchangeNote) =>{
         const data = {text, title}
         const res = await axios.patch(`/note/${id}`, data)
         return res.data
@@ -34,7 +38,7 @@ export const changeNote = createAsyncThunk(
 
 export const deleteNote = createAsyncThunk(
     'note/deleteNote',
-    async (id) =>{
+    async (id: string) =>{
         const res = await axios.delete(`/note/${id}`)
         return res.data
     }
@@ -52,7 +56,7 @@ const noteSlice = createSlice({
             state.note = action.payload.note
         })
         builder.addCase(createNote.fulfilled, (state, action) =>{
-            state.note.push(action.payload.note)
+            if(state.note) state.note.push(action.payload.note)
         })
         builder.addCase(changeNote.fulfilled, (state, action) =>{
             

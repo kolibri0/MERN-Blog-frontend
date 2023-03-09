@@ -1,4 +1,5 @@
 import styles from '../styles/post.module.css'
+import '../types'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import 'bootstrap/dist/css/bootstrap.min.css';

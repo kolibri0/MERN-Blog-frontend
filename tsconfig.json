@@ -26,8 +26,8 @@
     "src",
     "src/@types",
     "./types.d.ts",
-    "components/axios.js", 
-    "components/axios.js", 
+    "components/axios.ts", 
+    "components/axios.ts", 
     "Interface", 
     ],
   "exclude": [

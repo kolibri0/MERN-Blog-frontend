@@ -1,6 +1,6 @@
 import Categories from '../components/Categories';
 import Tags from '../components/Tags';
-import BlockItem from '../components/BlogItem';
+import BlogItem from '../components/BlogItem';
 import axios from '../components/axios'
 import styles from '../styles/blog.module.css'
 import { GetServerSideProps } from 'next/types';
@@ -16,8 +16,8 @@ interface Props {
 
 const Posts:React.FC<Props> = ({posts, tags}) => {
     const router = useRouter()
-    const getByTag = (tag: string) =>  router.push(`?tag=${tag}`)
-    const getByType = (type: string) => type ? router.push(`?type=${type}`) : router.push(``)
+    const getByTag = (tag: string):Promise<boolean> =>  router.push(`?tag=${tag}`)
+    const getByType = (type: string):Promise<boolean> => type ? router.push(`?type=${type}`) : router.push(``)
 
     return (
     <div className={styles.container}>
@@ -26,7 +26,7 @@ const Posts:React.FC<Props> = ({posts, tags}) => {
             <div className={styles.posts}>
                 {posts
                 ? posts.map((post: IPost) => 
-                <BlockItem 
+                <BlogItem 
                     key={post._id}
                     title={post.title} 
                     name={post.user.name} 
@@ -35,7 +35,7 @@ const Posts:React.FC<Props> = ({posts, tags}) => {
                     views={post.views}
                     comments={post.comments}
                     img={post.imgUrl ? process.env.NEXT_PUBLIC_URL_REQUEST + post.imgUrl : null}
-                    tags={post.tags}
+                    tags={post.tags ?? [] }
                     getByTag={getByTag}
                     colorUser={post.user.color}
                     />)

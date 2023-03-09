@@ -37,18 +37,18 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
         setPostId(router.query.id as string)
     }, [])
 
-    const removePost = async () => {
+    const removePost = async (): Promise<void> => {
         const res = await dispatch(deletePost(postId))
         if(res.payload?.success)router.push(`/`)
     }
 
-    const addComment = async () => {
+    const addComment = async (): Promise<void> => {
         const res = await dispatch(createComment({postId, commentText}))
         if(res.payload?.success)router.push(`/posts/${postId}`)
         setCommentText('')
     }
 
-    const middlewareChangeComment = (id: string, text: string) => {
+    const middlewareChangeComment = (id: string, text: string): void => {
         setChange(true)
         setIdChange(id)
         setCommentText(text)
@@ -58,34 +58,34 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
         }
     }
 
-    const changeComment = async () => {
+    const changeComment = async (): Promise<void> => {
         //without await not work 'if'
         const res = await dispatch(editComment({idChange, commentText}))
         if(res.payload?.success)afterChange()
     }
 
-    const afterChange = () => {
+    const afterChange = (): void => {
         setChange(false)
         setIdChange('')
         setCommentText('')
         router.push(`/posts/${postId}`)
     }
 
-    const removeComment = async (commentId: string) => {
+    const removeComment = async (commentId: string): Promise<void> => {
         //without await not work 'if'
         const res = await dispatch(deleteComment({postId, commentId}))
         if(res.payload?.success)router.push(`/posts/${postId}`)
     }
 
-    const cancel = () => {
+    const cancel = (): void => {
         setChange(false)
         setIdChange('')
         setCommentText('')
     }
 
-    const getByTag = (tag: string) => router.push(`/?tag=${tag}`)
-    const back = () => router.push(`/`)
-    const redirectToEdit = () => router.push(`/posts/${postId}/edit`)
+    const getByTag = (tag: string): Promise<boolean> => router.push(`/?tag=${tag}`)
+    const back = (): Promise<boolean> => router.push(`/`)
+    const redirectToEdit = (): Promise<boolean> => router.push(`/posts/${postId}/edit`)
 
     return(<>{post
         ?<><div className={styles.post}>

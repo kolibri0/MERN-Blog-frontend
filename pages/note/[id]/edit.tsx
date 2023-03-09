@@ -1,24 +1,32 @@
-import {useDispatch,} from 'react-redux'
+import { useAppDispatch } from '../../../redux/hook'
 import { useEffect, useState } from 'react'
 import styles from '../../../styles/note.module.css'
+import '../../../types'
 import axios from '../../../components/axios'
 import { useRouter } from 'next/router'
 import { changeNote } from '../../../redux/note'
+import * as React from 'react';
+import { GetServerSideProps } from 'next/types'
+import { INote } from '../../../Interface/INote'
 
-const EditNote = ({note}) => {
-    const dispatch = useDispatch()
+interface IProps{
+  note: INote
+}
+
+const EditNote: React.FC<IProps> = ({note}) => {
+    const dispatch = useAppDispatch()
     const router = useRouter()
     const {id} = router.query
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [text, setText] = useState<string>('')
 
-    const cancel = () => router.push(`/note`)
+    const cancel = (): Promise<boolean> => router.push(`/note`)
 
-    const change = () => dispatch(changeNote({id, text, title})).then(() => router.push('/note'))
+    const change = (): Promise<boolean> => dispatch(changeNote({id, text, title})).then(() => router.push('/note'))
 
     useEffect(() => {
-        setTitle(note?.title)
-        setText(note?.text)
+        setTitle(note.title)
+        setText(note.text)
     },[])
 
     return(
@@ -35,7 +43,7 @@ const EditNote = ({note}) => {
 }
 export default EditNote;
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps:GetServerSideProps = async ({query}) => {
     const note = await axios.get(`/note/${query.id}`)
     return {
       props: {

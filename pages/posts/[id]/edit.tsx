@@ -30,7 +30,7 @@ const EditPost: React.FC<IProps> = ({post}) => {
   
   const changedInput = async (event: any) => {
     try {
-        const formData = new FormData()
+        const formData: FormData = new FormData()
         const file = event.target.files[0] 
         formData.append('image', file)
         const {data} = await axios.post('uploads', formData)

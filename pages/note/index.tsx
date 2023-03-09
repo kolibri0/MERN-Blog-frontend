@@ -2,34 +2,33 @@ import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {CiCirclePlus} from 'react-icons/ci'
-// import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import * as React from 'react';
+import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import styles from '../../styles/note.module.css'
+import '../../types'
 import { useEffect } from 'react'
 import { getAllNote, deleteNote } from '../../redux/note'
+import { INote } from '../../Interface/INote';
 
-const Note = () => {
-    const dispatch = useDispatch()
+const Note: React.FC = () => {
+    const dispatch = useAppDispatch()
     const router = useRouter()
-    const {note} = useSelector(state => state.noteSlice)
-    console.log(note)
+    const {note} = useAppSelector(state => state.noteSlice)
 
     useEffect(() => {
         dispatch(getAllNote())
     },[])
 
-    const addNote = () => router.push(`/add-note`)
-
-    const editNote = (id) => router.push(`note/${id}/edit`)
-
-    const removeNote = (id) => dispatch(deleteNote(id))
+    const addNote = (): Promise<boolean> => router.push(`/add-note`)
+    const editNote = (id: string): Promise<boolean> => router.push(`note/${id}/edit`)
+    const removeNote = (id: string) => dispatch(deleteNote(id))
 
     return (
      <div className={styles.container}>
         <CiCirclePlus className={styles.plus} onClick={() => addNote()}/>
 
          <div className={styles.grid}>
-            {note ? note.map((item) => (
+            {note ? note.map((item: INote) => (
                 <div className={styles.item} key={item._id}>
                     <Link className={styles.link} href={`/note/${item._id}`}>{item.title.slice(0, 25)+ '...'}</Link> 
                     <RiEdit2Line className={styles.edit} onClick={() => editNote(item._id)}/>
@@ -40,7 +39,7 @@ const Note = () => {
             )): null}
      
         </div>
-  
+   
     </div>
     );
 }
