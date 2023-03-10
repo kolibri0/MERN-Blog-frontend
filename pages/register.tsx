@@ -1,22 +1,30 @@
 import { useForm } from "react-hook-form";
 import { Tooltip } from 'react-tooltip'
 import { AiOutlineExclamation} from 'react-icons/ai'
-import { registerUser } from "../redux/auth";
+import { registerUser, userAuthSelector } from "../redux/auth";
 import '../types'
 import styles from '../styles/auth.module.css'
 import 'react-tooltip/dist/react-tooltip.css'
-import { useAppDispatch } from '../redux/hook'
+import { useAppDispatch, useAppSelector } from '../redux/hook'
 import * as React from 'react';
+import { useRouter} from "next/router";
 
 const SignIn: React.FC = () => {
     const dispatch = useAppDispatch()
+    const router = useRouter()
     const {
         register,
         formState: {errors},
         handleSubmit,
     } = useForm()
 
+    const user = useAppSelector(userAuthSelector)
+
     const userRegister = (data: any) => dispatch(registerUser(data))
+
+    if(user && localStorage.getItem('token')){
+      router.push('/')
+    }
 
     return(
     <div className={styles.auth}>

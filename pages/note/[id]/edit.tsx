@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { useEffect, useState } from 'react'
 import styles from '../../../styles/note.module.css'
 import '../../../types'
@@ -8,6 +8,7 @@ import { changeNote } from '../../../redux/note'
 import * as React from 'react';
 import { GetServerSideProps } from 'next/types'
 import { INote } from '../../../Interface/INote'
+import { userAuthSelector } from '../../../redux/auth'
 
 interface IProps{
   note: INote
@@ -19,14 +20,16 @@ const EditNote: React.FC<IProps> = ({note}) => {
     const {id} = router.query
     const [title, setTitle] = useState<string>('')
     const [text, setText] = useState<string>('')
+    const auth = useAppSelector(userAuthSelector)
 
     const cancel = (): Promise<boolean> => router.push(`/note`)
 
     const change = (): Promise<boolean> => dispatch(changeNote({id, text, title})).then(() => router.push('/note'))
 
     useEffect(() => {
-        setTitle(note.title)
-        setText(note.text)
+      if(!auth && !localStorage.getItem('token'))router.push('/login')
+      setTitle(note.title)
+      setText(note.text)
     },[])
 
     return(

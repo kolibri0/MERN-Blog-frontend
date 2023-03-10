@@ -9,14 +9,13 @@ import { ICommentItem } from '../Interface/IProps'
 
 const CommentItem: React.FC<ICommentItem> = ({comment, removeComment, middlewareChangeComment, user}) => {
     return ( 
-    <div className={styles.commentItem} key={comment._id}>
+    <div className={styles.commentItem} key={comment._id} style={!user ? {filter: "blur(5px)"} : {filter: "blur(0)"}}>
         <div className={styles.commentPerson}>
             <Link href={`/user/${comment?.user._id}`}><CgProfile className={styles.personComment} style={{color: `${comment.user.color}`}}/></Link>  
             <Link className={styles.commentName} href={`/user/${comment?.user._id}`}>{comment?.user.name}</Link> 
         </div>
 
-        <div className={styles.commentText}>{comment.text}</div> 
-
+        <div className={styles.commentText} style={ !user ? {userSelect: "none"} : {userSelect: "all"}}>{comment.text}</div> 
         {
         user && user._id === comment.user._id 
         ?<div>

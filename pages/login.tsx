@@ -20,8 +20,8 @@ const Login: React.FC = () => {
         handleSubmit,
     } = useForm()
 
-    if(user){
-       router.push('/')    
+    if(user && localStorage.getItem('token')){
+      router.push('/')
     }
 
     const userLogin = (data: any) => dispatch(loginUser(data))

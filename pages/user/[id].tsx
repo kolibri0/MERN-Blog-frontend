@@ -6,28 +6,38 @@ import styles from '../../styles/profile.module.css'
 import { CgProfile } from 'react-icons/cg'
 import { RiEdit2Line } from 'react-icons/ri'
 
-import { useSelector } from 'react-redux'
 import BlogItem from '../../components/BlogItem'
+import { useAppSelector } from '../../redux/hook'
+import { userAuthSelector } from '../../redux/auth'
+import { IUser } from '../../Interface/IUser'
+import { IPost } from '../../Interface/IPost'
+import { GetServerSideProps } from 'next/types'
 
+interface IProps{
+  userInfo: IUser,
+  posts: IPost[]
+}
 
-const User = ({userInfo, posts}) => {
+const User: React.FC<IProps> = ({userInfo, posts}) => {
     const router = useRouter()
     const {id} = router.query
-    const me = useSelector(state => state.userSlice.user)
-    const [user, setUser] = React.useState(null)
+    const me = useAppSelector(state => state.userSlice.user)
+    const auth = useAppSelector(userAuthSelector)
+    const [user, setUser] = React.useState<null | IUser>(null)
     const [color, setColor] = React.useState('')
     const [name, setName] = React.useState('')
     const [change, setChange] = React.useState(false)
     const colorOption = ["blue", "green", "red", "orange", "violet", "indigo", "yellow", "gray"]
 
     React.useEffect(() => {
-        setUser(userInfo) 
-        setName(userInfo.name)
+      if(!auth && !localStorage.getItem('token'))router.push('/login')
+      setUser(userInfo) 
+      setName(userInfo.name)
     }, [id])
 
-    const changeColor = (e) => setColor(e.target.value)
+    const changeColor = (e: any) => setColor(e.target.value)
 
-    const getByTag = (tag) =>  router.push(`/?tag=${tag}`)
+    const getByTag = (tag: string) =>  router.push(`/?tag=${tag}`)
 
     const changeMe = async () => {
         const data = {
@@ -37,7 +47,7 @@ const User = ({userInfo, posts}) => {
         const userRes = await axios.patch(`user/${id}`, data)
         if(userRes.data.success){
             router.push(`/user/${id}`)
-            user.color = color
+           if(user)user.color = color
         }
         setName('')
         setChange(false)
@@ -78,11 +88,11 @@ const User = ({userInfo, posts}) => {
             :null}
         </div>
         
-        {/* {user && posts && !loading */}
         {user && posts
         ?<div className={styles.posts}>
             <div className={styles.h2}>User posts</div>
-            {posts.map((post) => <BlogItem key={post._id}
+            {posts.map((post: IPost) => 
+              <BlogItem key={post._id}
                 title={post.title} 
                 name={post.user.name} 
                 id={post._id} 
@@ -103,7 +113,7 @@ const User = ({userInfo, posts}) => {
  
 export default User;
 
-export async function getServerSideProps({query}) {
+export const getServerSideProps:GetServerSideProps = async ({query}) => {
     const user = await axios.get(`/user/${query.id}`)
     const posts = await axios.get(`/user/posts/${query.id}`)
     return {

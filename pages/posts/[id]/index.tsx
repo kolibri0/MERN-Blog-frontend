@@ -84,7 +84,7 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
     }
 
     const getByTag = (tag: string): Promise<boolean> => router.push(`/?tag=${tag}`)
-    const back = (): Promise<boolean> => router.push(`/`)
+    const back = (): void => router.back()
     const redirectToEdit = (): Promise<boolean> => router.push(`/posts/${postId}/edit`)
 
     return(<>{post
@@ -107,10 +107,20 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
         <div className={styles.comments}>
             <div className={styles.block}>Comments</div>
             <div className={styles.commentAdd}>
-                <CgProfile className={styles.person}/>
-                <input className={styles.Input}   ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)}/>
+              <CgProfile className={styles.person}/>
+              {
+                user
+                  ?<input className={styles.Input} ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)}/>
+                  :<input className={styles.Input} disabled ref={textInput} type={'text'} placeholder='Enter comment...'/>
+              }
             </div> 
-    
+            
+            {
+             !user 
+              ?<div className={styles.warn}>To see comments please register</div>
+              : null
+            }
+
             <PostBtns 
             commentText={commentText} 
             change={change} 

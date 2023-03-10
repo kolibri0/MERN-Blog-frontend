@@ -27,19 +27,23 @@
     margin-right: 48px;
     border-radius: 10px;
     margin-bottom: 20px;
+    position: relative;
 }
 .postItem{
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    cursor: pointer;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: mymove 1.7s normal;
 }
+
 .tags{
-    width: 226px;
-    height: 330px;
-    background-color: #ffffff;
-    padding: 12px;
-    overflow-y: auto;
+  width: 226px;
+  height: 330px;
+  background-color: #ffffff;
+  padding: 12px;
+  overflow-y: auto;
+  animation: Atags 1.7s normal;
 }
 .tagH2{
     font-size: 24px;
@@ -222,3 +226,41 @@
     }
     
 }
+
+
+/*---------------------animation------------------------*/
+@keyframes mymove {
+  0% {
+    position: relative;
+    left: -250px;
+  }
+
+  80% {
+    left: 20px; 
+    position: relative;
+  }
+
+  100% {
+    left: 0px; 
+    position: relative;
+  }
+}
+
+@keyframes Atags {
+  0% {
+    position: relative;
+    right: -150px;
+  }
+
+  80% {
+    right: 20px; 
+    position: relative;
+  }
+
+  100% { 
+    right: 0px; 
+    position: relative;
+  }
+}
+
+

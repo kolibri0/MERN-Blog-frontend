@@ -18,6 +18,7 @@
     background-color: #ffffff;
     border-radius: 10px;
     position: relative;
+    animation: Apost 1.4s normal;
 }
 .tagItem{
     display: inline;
@@ -72,6 +73,18 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
+    animation: Acomments 1.4s normal;
+    position: relative;
+}
+.warn{
+  position: absolute;
+  filter: blur(0);
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 20px;
+  color: #c51d1d;
 }
 .commentAdd{
     display: flex;
@@ -274,4 +287,28 @@
     .comments{
         width: 300px;
     }
+}
+
+@keyframes Apost {
+  0% {
+    position: relative;
+    right: -150px;
+  }
+
+  100% { 
+    right: 0px; 
+    position: relative;
+  }
+}
+
+@keyframes Acomments {
+  0% {
+    position: relative;
+    left: -150px;
+  }
+
+  100% { 
+    left: 0px; 
+    position: relative;
+  }
 }

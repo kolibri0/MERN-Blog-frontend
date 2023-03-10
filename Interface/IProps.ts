@@ -26,7 +26,7 @@ export interface IPostInfo{
   post: IPost,
   user: IUser | null,
   getByTag: (tag: string) => Promise<boolean>,
-  back: () => Promise<boolean>,
+  back: () => void,
   removePost: () => Promise<void>,
   redirectToEdit: () => Promise<boolean>,
 }
@@ -55,7 +55,7 @@ export interface IBlogItem{
   views: number,
   comments: IComment[],
   img: string | null,
-  tags: string[],
+  tags: string[] | [] | undefined,
   colorUser: string,
   getByTag: (tag: string) => Promise<boolean>,
 }

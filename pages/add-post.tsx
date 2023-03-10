@@ -4,14 +4,21 @@ import '../types'
 import BlogForm from '../components/BlogForm'
 import axios from '../components/axios'
 import { useRouter } from 'next/router'
+import { useAppSelector } from '../redux/hook'
+import { userAuthSelector } from '../redux/auth'
 
-const AddPost = () => {
+const AddPost: React.FC = () => {
   const router = useRouter()
   const inputFileRef = React.useRef(null)
   const [text, setText] = React.useState<string>("");
   const [imgUrl, setImgUrl] = React.useState<string>("")
   const [title, setTitle] = React.useState<string>("");
   const [tags, setTags] = React.useState<string>("");
+  const auth = useAppSelector(userAuthSelector)
+
+  React.useEffect(() => {
+    if(!auth && !localStorage.getItem('token'))router.push('/login')
+  }, [])
 
   const onChange = React.useCallback((text: string) => { 
     setText(text) 

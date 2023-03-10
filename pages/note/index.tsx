@@ -9,14 +9,20 @@ import '../../types'
 import { useEffect } from 'react'
 import { getAllNote, deleteNote } from '../../redux/note'
 import { INote } from '../../Interface/INote';
+import { userAuthSelector } from '../../redux/auth';
 
 const Note: React.FC = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const {note} = useAppSelector(state => state.noteSlice)
+    const auth = useAppSelector(userAuthSelector)
 
     useEffect(() => {
+      if(auth && localStorage.getItem('token')){
         dispatch(getAllNote())
+      }else{
+        router.push('/login')
+      }
     },[])
 
     const addNote = (): Promise<boolean> => router.push(`/add-note`)

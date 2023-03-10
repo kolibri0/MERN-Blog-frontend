@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router'
-import {useAppDispatch} from '../../../redux/hook'
+import {useAppDispatch, useAppSelector} from '../../../redux/hook'
 import axios from '../../../components/axios'
 import styles from '../../../styles/note.module.css'
 import '../../../types'
@@ -8,6 +8,7 @@ import {RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
 import * as React from 'react';
 import { GetServerSideProps } from 'next/types'
 import { INote } from '../../../Interface/INote'
+import { userAuthSelector } from '../../../redux/auth'
 
 interface IProps{
   note: INote
@@ -17,6 +18,11 @@ const NoteItem: React.FC<IProps> = ({note}) => {
     const router = useRouter()
     const {id} = router.query
     const dispatch = useAppDispatch()
+    const auth = useAppSelector(userAuthSelector)
+
+    React.useEffect(() => {
+      if(!auth && !localStorage.getItem('token'))router.push('/login')
+    }, [])
 
     const cancel = (): Promise<boolean> => router.push(`/note`)
 

@@ -1,15 +1,21 @@
 import { useRouter } from "next/router"
 import * as React from 'react';
-import { useAppDispatch } from "../redux/hook"
+import { userAuthSelector } from "../redux/auth";
+import { useAppDispatch, useAppSelector } from "../redux/hook"
 import { createNote } from "../redux/note"
 import styles from '../styles/note.module.css'
 import '../types'
 
-const AddNote = () => {
+const AddNote: React.FC = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const [title, setTitle] = React.useState<string>('')
     const [text, setText] = React.useState<string>('')
+    const auth = useAppSelector(userAuthSelector)
+
+  React.useEffect(() => {
+    if(!auth && !localStorage.getItem('token'))router.push('/login')
+  }, [])
 
     const add = (): Promise<boolean> => dispatch(createNote({text, title})).then(() => router.push(`/note`))
     const cancel = (): Promise<boolean> => router.push(`/note`)

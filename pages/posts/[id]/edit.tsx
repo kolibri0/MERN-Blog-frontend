@@ -7,6 +7,8 @@ import * as React from 'react';
 import BlogForm from "../../../components/BlogForm";
 import { IPost } from '../../../Interface/IPost'
 import { GetServerSideProps } from "next/types";
+import { userAuthSelector } from "../../../redux/auth";
+import { useAppSelector } from "../../../redux/hook";
 
 interface IProps{
   post: IPost
@@ -15,6 +17,7 @@ interface IProps{
 const EditPost: React.FC<IProps> = ({post}) => {
   const router = useRouter()
   const {id} = router.query
+  const auth = useAppSelector(userAuthSelector)
   const inputFileRef = useRef<HTMLInputElement>(null)
   const [text, setText] = useState<string>('');
   const [imgUrl, setImgUrl] = useState<string>('')
@@ -22,6 +25,7 @@ const EditPost: React.FC<IProps> = ({post}) => {
   const [tags, setTags] = useState<string>('');
 
   useEffect(() => {
+    if(!auth && !localStorage.getItem('token'))router.push('/login')
     onChange(post.text)
     setTitle(post.title)
     setImgUrl(post.imgUrl as string)
