@@ -4,6 +4,8 @@ import styles from '../styles/add.module.css'
 import '../types'
 import dynamic from 'next/dynamic'
 import { IBlogForm } from '../Interface/IProps'
+import '../pages/_app'
+
 
 const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {ssr: false})
 
