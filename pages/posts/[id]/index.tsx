@@ -34,7 +34,7 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
     const [idChange, setIdChange] = useState<string>('')
     
     useEffect(() => {
-        setPostId(router.query.id as string)
+      setPostId(router.query.id as string)
     }, [])
 
     const removePost = async (): Promise<void> => {
@@ -111,7 +111,7 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
               {
                 user
                   ?<input className={styles.Input} ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)}/>
-                  :<input className={styles.Input} disabled ref={textInput} type={'text'} placeholder='Enter comment...'/>
+                  :<input className={styles.Input} disabled type={'text'} placeholder='Enter comment...'/>
               }
             </div> 
             
@@ -129,7 +129,7 @@ const Post: React.FC<IComponent> = ({post, comments}) => {
             changeComment={changeComment} 
             />
     
-            {post && comments.length 
+            {post && comments.length
             ? comments.map((comment) => 
             <CommentItem 
             comment={comment}

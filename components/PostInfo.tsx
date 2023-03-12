@@ -26,7 +26,7 @@ const PostInfo: React.FC<IPostInfo> = ({post, getByTag, back, removePost, user, 
           ? post.tags.map((tag: string) => <p className={styles.tagItem} onClick={() => getByTag(tag)}>#{tag}</p>)
           : null
         }
-        <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{post.text}</ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeHighlight]} className={styles.markdown}>{post.text}</ReactMarkdown>
         <div className={styles.icons}>
             <div className={styles.iconItem}><AiOutlineEye /> {post.views}</div> 
             <div className={styles.iconItem}><BiComment /> {post.comments.length}</div>

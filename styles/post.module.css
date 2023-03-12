@@ -76,6 +76,9 @@
     animation: Acomments 1.4s normal;
     position: relative;
 }
+.markdown{
+  width: 820px;
+}
 .warn{
   position: absolute;
   filter: blur(0);
