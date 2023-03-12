@@ -31,7 +31,7 @@ const BlogForm: React.FC<IBlogForm> = (
     {
       imgUrl
       ?<>
-        <img className={styles.img} src={ process.env.NEXT_PUBLIC_URL_REQUEST + `${imgUrl}`} />
+        <img className={styles.img} src={process.env.NEXT_PUBLIC_URL_REQUEST+`${imgUrl}`} />
         <button className={styles.delete} onClick={() => removeImgUrl()}>Delete</button>
        </>
       :null
