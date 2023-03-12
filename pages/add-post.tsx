@@ -31,8 +31,9 @@ const AddPost: React.FC = () => {
         const formData = new FormData()
         const file = event.target.files[0] 
         formData.append('image', file)
-        const {data} = await axios.post('uploads', formData)
+        const {data} = await axios.post('/uploads', formData)
         setImgUrl(data.url)
+        console.log(imgUrl)
     } catch (err) {
         console.warn(err)
         alert('File upload error')
