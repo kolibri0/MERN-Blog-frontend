@@ -1,5 +1,6 @@
 import { IComment, IPost } from "./IPost"
 import { IUser } from "./IUser"
+import * as React from 'react';
 
 export interface ITag{
   tags: string[],
