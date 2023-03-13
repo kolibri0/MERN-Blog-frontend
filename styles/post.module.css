@@ -264,6 +264,9 @@
     .comments{
         width: 600px;
     }
+    .warn{
+      font-size: 17px;
+    }
 }
 @media (max-width: 480px){
     .post{
@@ -289,6 +292,9 @@
     }
     .comments{
         width: 300px;
+    }
+    .warn{
+      font-size: 13px;
     }
 }
 
