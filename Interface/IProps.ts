@@ -2,13 +2,13 @@ import { IComment, IPost } from "./IPost"
 import { IUser } from "./IUser"
 import * as React from 'react';
 
-export interface ITag{
+export interface ITag {
   tags: string[],
   getByTag: (tag: string) => Promise<boolean>,
   styles: any
 }
 
-export interface IPostBtns{
+export interface IPostBtns {
   commentText: string,
   change: boolean,
   cancel: () => void,
@@ -16,14 +16,14 @@ export interface IPostBtns{
   changeComment: () => Promise<void>,
 }
 
-export interface ICommentItem{
+export interface ICommentItem {
   comment: IComment,
   removeComment: (comment: string) => Promise<void>,
   middlewareChangeComment: (id: string, text: string) => void,
   user: IUser | null
 }
 
-export interface IPostInfo{
+export interface IPostInfo {
   post: IPost,
   user: IUser | null,
   getByTag: (tag: string) => Promise<boolean>,
@@ -32,7 +32,7 @@ export interface IPostInfo{
   redirectToEdit: () => Promise<boolean>,
 }
 
-export interface IBlogForm{
+export interface IBlogForm {
   onSubmit: () => Promise<void>,
   setTitle: React.Dispatch<React.SetStateAction<string>>,
   removeImgUrl: () => void,
@@ -48,7 +48,7 @@ export interface IBlogForm{
 
 // export interface
 
-export interface IBlogItem{
+export interface IBlogItem {
   id: string,
   name: string,
   title: string,
