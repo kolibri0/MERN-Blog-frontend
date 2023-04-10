@@ -4,11 +4,45 @@ import '../../types'
 import { AiOutlineSend } from 'react-icons/ai'
 import { MdOutlineAttachFile } from 'react-icons/md'
 import axios from '../../components/axios'
+import { useAppSelector } from '../../redux/hook'
 
 
 const Chat = () => {
 
   const inputFileRef = React.useRef<HTMLInputElement>(null)
+  const { user } = useAppSelector(state => state.userSlice)
+  const [chats, setChats] = React.useState<any[]>([])
+  const [chatMessages, setChatMessages] = React.useState<any[]>([])
+  const [chatName, setChatName] = React.useState('Select chat')
+  const [chatID, setChatID] = React.useState('')
+
+  const [messageText, setMessageText] = React.useState('')
+  // console.log(user)
+  // console.log(chatMessages)
+  const getUSerChats = async () => {
+    const { data } = await axios.get(`/users/${user?._id}/chats`)
+    setChats(data.chats)
+  }
+
+  const selectChat = (chat) => {
+    setMessageText('')
+    getChatMessage(chat._id)
+    setChatID(chat._id)
+    if (user)
+      chat.userOne._id == user._id
+        ? setChatName(chat.userTwo.name)
+        : setChatName(chat.userOne.name)
+  }
+
+
+  const getChatMessage = async (id: any) => {
+    const { data } = await axios.get(`/chats/${id}`)
+    setChatMessages(data.messages)
+  }
+
+  React.useEffect(() => {
+    getUSerChats()
+  }, [])
 
 
   const inputRef = () => {
@@ -17,115 +51,69 @@ const Chat = () => {
     }
   }
 
-  const sendMessage = () => {
-    console.log("!@")
+  const sendMessage = async () => {
+    const messageData = {
+      text: messageText,
+      roomId: chatID
+    }
+    const { data } = await axios.post('/messages', messageData)
+    setChatMessages([...chatMessages, data.msg])
+    setMessageText('')
   }
+
 
   return (<>
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.messages}>Messages</div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name</div>
-        </div>
-
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Alex</div>
-        </div>
-
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-
-
-
-
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
-        <div className={styles.chatItem}>
-          <div className={styles.profileImg}></div>
-          <div className={styles.chatPerson}>My Name Again</div>
-        </div>
+        {
+          chats
+            ? chats.map((chat) => (
+              <div className={styles.chatItem} onClick={() => selectChat(chat)}>
+                <div className={styles.profileImg}></div>
+                {user &&
+                  chat.userOne._id == user._id
+                  ? <div className={styles.chatPerson}>{chat.userTwo.name}</div>
+                  : <div className={styles.chatPerson}>{chat.userOne.name}</div>
+                }
+              </div>
+            ))
+            : null
+        }
       </div>
       <div className={styles.right}>
         <div className={styles.chatHead}>
-          <div className={styles.headName}>Name some</div>
+          <div className={styles.headName}>{chatName}</div>
           <div className={styles.hr} />
         </div>
         <div className={styles.chat}>
+          {user &&
+            chatMessages
+            ? chatMessages.map((message) => (
+              <div className={message.user == user._id ? styles.me : styles.friend}>
+                <div className={message.user == user._id ? styles.message : styles.messageFriend}>
+                  {message.text}
+                </div>
+              </div>
+            ))
+            : null
+          }
 
-          <div className={styles.friend}>
+          {/* <div className={styles.friend}>
             <p className={styles.messageFriend}>message from some</p>
-          </div>
+          </div> */}
 
-          <div className={styles.me}>
+          {/* <div className={styles.me}>
             <p className={styles.message}>
               message from me
-
-              message from me
-              message from me
-
-              message from me
-              message from me
-              message from me
-              message from me
-              message from me
-
-              message from me
-              message from me
-              message from me
-              message from me
-              message from me
-
-              messagfrom me
-              message from me
-              message rom me
-              message fm me
-              message from
-              message from me
-              message from me
-              message from me
             </p>
-            <p className={styles.message}>a</p>
-          </div>
+          </div> */}
+
         </div>
 
         <div className={styles.messageBlock}>
           <div className={styles.inputBlock}>
-            <input className={styles.messageInput} type="text" placeholder='Enter message...' />
+            <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} />
             <input type="file" ref={inputFileRef} hidden />
             <div className={styles.file}>{<MdOutlineAttachFile onClick={() => inputRef()} />}</div>
           </div>
