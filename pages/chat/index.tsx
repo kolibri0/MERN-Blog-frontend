@@ -4,11 +4,13 @@ import '../../types'
 import { AiOutlineSend } from 'react-icons/ai'
 import { MdOutlineAttachFile } from 'react-icons/md'
 import axios from '../../components/axios'
-import { useAppSelector } from '../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { SocketContext } from '../../components/context/socket'
+import { useRouter } from 'next/router';
 
 
 const Chat = () => {
-
+  const socket = React.useContext(SocketContext)
   const inputFileRef = React.useRef<HTMLInputElement>(null)
   const { user } = useAppSelector(state => state.userSlice)
   const [chats, setChats] = React.useState<any[]>([])
@@ -17,14 +19,15 @@ const Chat = () => {
   const [chatID, setChatID] = React.useState('')
 
   const [messageText, setMessageText] = React.useState('')
-  // console.log(user)
-  // console.log(chatMessages)
+
   const getUSerChats = async () => {
     const { data } = await axios.get(`/users/${user?._id}/chats`)
     setChats(data.chats)
   }
 
   const selectChat = (chat) => {
+    socket.emit('leave', { roomId: chat._id })
+    setChatID('')
     setMessageText('')
     getChatMessage(chat._id)
     setChatID(chat._id)
@@ -34,16 +37,17 @@ const Chat = () => {
         : setChatName(chat.userOne.name)
   }
 
-
-  const getChatMessage = async (id: any) => {
-    const { data } = await axios.get(`/chats/${id}`)
-    setChatMessages(data.messages)
-  }
+  const getChatMessage = React.useCallback((id: any) => {
+    socket.emit('get-room-messages', { roomId: id })
+    socket.on("output-room-message", (data) => {
+      setChatMessages(data)
+    })
+    socket.emit('join', { roomId: id })
+  }, [])
 
   React.useEffect(() => {
     getUSerChats()
   }, [])
-
 
   const inputRef = () => {
     if (inputFileRef.current) {
@@ -51,13 +55,13 @@ const Chat = () => {
     }
   }
 
-  const sendMessage = async () => {
-    const messageData = {
-      text: messageText,
-      roomId: chatID
-    }
-    const { data } = await axios.post('/messages', messageData)
-    setChatMessages([...chatMessages, data.msg])
+  const sendMessage = () => {
+    socket.emit("send-message", { roomId: chatID, text: messageText, userId: user?._id })
+    socket.on('get-message', data => {
+      // setChatMessages([...chatMessages, data.message])
+      setChatMessages(data.message)
+
+    })
     setMessageText('')
   }
 
@@ -69,7 +73,7 @@ const Chat = () => {
         {
           chats
             ? chats.map((chat) => (
-              <div className={styles.chatItem} onClick={() => selectChat(chat)}>
+              <div className={styles.chatItem} onClick={() => selectChat(chat)} key={chat._id}>
                 <div className={styles.profileImg}></div>
                 {user &&
                   chat.userOne._id == user._id
@@ -90,7 +94,7 @@ const Chat = () => {
           {user &&
             chatMessages
             ? chatMessages.map((message) => (
-              <div className={message.user == user._id ? styles.me : styles.friend}>
+              <div className={message.user == user._id ? styles.me : styles.friend} key={message._id}>
                 <div className={message.user == user._id ? styles.message : styles.messageFriend}>
                   {message.text}
                 </div>
@@ -98,17 +102,6 @@ const Chat = () => {
             ))
             : null
           }
-
-          {/* <div className={styles.friend}>
-            <p className={styles.messageFriend}>message from some</p>
-          </div> */}
-
-          {/* <div className={styles.me}>
-            <p className={styles.message}>
-              message from me
-            </p>
-          </div> */}
-
         </div>
 
         <div className={styles.messageBlock}>
