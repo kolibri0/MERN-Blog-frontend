@@ -17,7 +17,6 @@ const Chat = () => {
   const [chatMessages, setChatMessages] = React.useState<any[]>([])
   const [chatName, setChatName] = React.useState('Select chat')
   const [chatID, setChatID] = React.useState('')
-
   const [messageText, setMessageText] = React.useState('')
 
   const getUSerChats = async () => {
