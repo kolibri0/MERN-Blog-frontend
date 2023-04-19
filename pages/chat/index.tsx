@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from '../../styles/chat.module.css'
 import '../../types'
 import { AiOutlineSend } from 'react-icons/ai'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 import { MdOutlineAttachFile } from 'react-icons/md'
 import axios from '../../components/axios'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
@@ -10,6 +11,7 @@ import { useRouter } from 'next/router';
 
 
 const Chat = () => {
+  const router = useRouter()
   const socket = React.useContext(SocketContext)
   const inputFileRef = React.useRef<HTMLInputElement>(null)
   const { user } = useAppSelector(state => state.userSlice)
@@ -64,11 +66,20 @@ const Chat = () => {
     setMessageText('')
   }
 
+  const deleteChat = async () => {
+    const { data } = await axios.delete(`/chats/${chatID}`)
+    if (data.success) {
+      setChats(chats.filter(el => el._id != chatID))
+      setChatMessages([])
+      setChatName('Select chat')
+    }
+  }
+
 
   return (<>
     <div className={styles.container}>
       <div className={styles.left}>
-        <div className={styles.messages}>Messages</div>
+        <div className={styles.messages}>People</div>
         {
           chats
             ? chats.map((chat) => (
@@ -86,7 +97,18 @@ const Chat = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.chatHead}>
-          <div className={styles.headName}>{chatName}</div>
+          <div className={styles.chatHeadContain}>
+            <div>
+              <div className={styles.headName}>{chatName}</div>
+            </div>
+            <div>
+              {
+                chatID.length
+                  ? <button className={styles.deleteChat} onClick={() => deleteChat()} ><RiDeleteBin6Line /></button>
+                  : null
+              }
+            </div>
+          </div>
           <div className={styles.hr} />
         </div>
         <div className={styles.chat}>

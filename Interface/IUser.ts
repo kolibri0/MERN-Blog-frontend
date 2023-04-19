@@ -3,5 +3,7 @@ export interface IUser {
   name: string,
   email: string,
   color: string,
-  aboutMe?: string
+  aboutMe?: string,
+  followers?: any,
+  youFollow?: any
 }

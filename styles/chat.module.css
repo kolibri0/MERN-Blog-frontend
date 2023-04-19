@@ -80,6 +80,23 @@
   background-color: white;
   border-radius: 20px 20px 0 0;
 }
+.chatHeadContain{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteChat{
+  border: none;
+  background-color: white;
+  margin-right: 10px;
+  font-size: 20px;
+  color: rgb(195, 2, 2);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.deleteChat:hover{
+  color: red;
+}
 .headName{
   margin-bottom: 15px;
   margin-left: 15px;

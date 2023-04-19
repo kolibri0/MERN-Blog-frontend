@@ -62,18 +62,32 @@
   border: none;
   padding: 6px 25px;
   border-radius: 25px;
+  border: 1px solid white;
   color: white;
   margin-right: 15px;
   cursor: pointer;
+  transition: all 0.5s;
+}
+.follow:hover{
+  color: #0127d1;
+  background-color: white;
+  border: 1px solid #002fff;
 }
 .unfollow{
-  background-color: #ff0000;
+  background-color: #ec1111;
   border: none;
   padding: 6px 25px;
   border-radius: 25px;
   color: white;
   margin-right: 15px;
   cursor: pointer;
+  border: 1px solid white;
+  transition: all 0.5s;
+}
+.unfollow:hover{
+  color: #ec1111;
+  background-color: white;
+  border: 1px solid #ec1111;
 }
 .message{
   background-color: white;
@@ -82,6 +96,12 @@
   border-radius: 25px;
   color: #002fff;
   cursor: pointer;
+  transition: all 0.5s;
+}
+.message:hover{
+  color: white;
+  background-color: #002fff;
+  border: 1px solid white;
 }
 .hr{
   height: 2px; 
@@ -115,6 +135,9 @@
 }
 .watch{
   margin-right: 10px;
+}
+.followName{
+  margin-left: 5px;
 }
 .posts{
   background-color: white;
