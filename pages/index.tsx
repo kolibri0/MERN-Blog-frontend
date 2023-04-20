@@ -12,14 +12,15 @@ import '../types'
 interface Props {
   posts: IPost[],
   tags: string[] | [],
+  famouseUsers: any[]
 }
 
-const Posts: React.FC<Props> = ({ posts, tags }) => {
+const Posts: React.FC<Props> = ({ posts, tags, famouseUsers }) => {
   const router = useRouter()
   const getByTag = (tag: string): Promise<boolean> => router.push(`?tag=${tag}`)
 
   const getByType = (type: string): Promise<boolean> => type ? router.push(`?type=${type}`) : router.push(``)
-
+  console.log(famouseUsers)
   return (
     <div className={styles.container}>
       <Categories getByType={getByType} />
@@ -61,10 +62,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     posts = await axios.get(`/posts`)
   }
   const tags = await axios.get(`/tags`)
+  const famouseUsers = await axios.get(`/users/famouse`)
   return {
     props: {
       posts: posts.data.posts,
-      tags: tags.data.tags
+      tags: tags.data.tags,
+      famouseUsers: famouseUsers.data.result
     }
   }
 }

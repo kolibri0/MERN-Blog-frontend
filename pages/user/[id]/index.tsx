@@ -1,18 +1,20 @@
-import axios from '../../components/axios'
+import axios from '../../../components/axios'
 import React from 'react'
 import { useRouter } from 'next/router'
-import styles from '../../styles/profile.module.css'
+import styles from '../../../styles/profile.module.css'
 
 import { CgProfile } from 'react-icons/cg'
 import { AiOutlineEye } from 'react-icons/ai'
 import { BiComment } from 'react-icons/bi'
+import { RiEdit2Line } from 'react-icons/ri'
 
-import BlogItem from '../../components/BlogItem'
-import { useAppDispatch, useAppSelector } from '../../redux/hook'
-import { followOnUser, userAuthSelector, deleteFollowOnUser } from '../../redux/auth'
-import { IUser } from '../../Interface/IUser'
-import { IPost } from '../../Interface/IPost'
+import BlogItem from '../../../components/BlogItem'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { followOnUser, userAuthSelector, deleteFollowOnUser } from '../../../redux/auth'
+import { IUser } from '../../../Interface/IUser'
+import { IPost } from '../../../Interface/IPost'
 import { GetServerSideProps } from 'next/types'
+import Link from 'next/link'
 
 interface IProps {
   userInfo: IUser,
@@ -32,7 +34,7 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
     setUser(userInfo)
   }, [id])
 
-  const getByTag = (tag: string) => router.push(`/?tag=${tag}`)
+  const getByTag = (tag: string): Promise<boolean> => router.push(`/?tag=${tag}`)
 
   const follow = async () => {
     if (me && user) {
@@ -72,8 +74,14 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
         <>
           <div className={styles.left}>
             <div className={styles.containProfile}>
-              <CgProfile className={styles.profile} />
+              <CgProfile className={styles.profile} color={userInfo.color} />
               <div className={styles.name}>{user.name}</div>
+              {
+                user._id == me?._id
+                  ? <Link className={styles.editIcon} href={`${id}/edit`}><RiEdit2Line /></Link>
+                  : null
+              }
+
               <div className={styles.containBtn}>
                 {
                   user._id !== me?._id
@@ -93,10 +101,10 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
               {
                 user.followers.length
                   ? user.followers.map((followItem, i) => (
-                    <div className={styles.follower}>
+                    <Link className={styles.follower} href={followItem._id}>
                       <CgProfile fontSize={25} color={followItem.color} />
                       <div className={styles.followName}>{followItem.name}</div>
-                    </div>
+                    </Link>
                   ))
                   : <div>No have followers</div>
               }
@@ -106,10 +114,10 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
               ? <div className={styles.followers}>
                 <div>You follow on:</div>
                 {user.youFollow.map((followItem, i) => (
-                  <div className={styles.follower}>
+                  <Link className={styles.follower} href={followItem._id}>
                     <CgProfile fontSize={25} color={followItem.color} />
                     <div className={styles.followName}>{followItem.name}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
               : null
@@ -134,12 +142,18 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
                     <div className={styles.post}>
                       <div className={styles.fromLeftPost}>
                         {post.imgUrl &&
-                          <img className={styles.img} src={process.env.NEXT_PUBLIC_URL_REQUEST + post.imgUrl} alt="" />
+                          <Link href={`/posts/${post._id}`}>
+                            <img className={styles.img} src={process.env.NEXT_PUBLIC_URL_REQUEST + post.imgUrl} alt="" />
+                          </Link>
                         }
                       </div>
                       <div className={styles.fromRightPost}>
-                        <div className={styles.title}>{post.title?.slice(0, 50)}</div>
-                        <div className={styles.tags}>{post.tags?.map((res) => <div className={styles.tag}>#{res}</div>)}</div>
+                        <Link href={`/posts/${post._id}`} className={styles.link}>
+                          <div className={styles.title}>{post.title?.slice(0, 50)}</div>
+                        </Link>
+                        <div className={styles.tags}>{post.tags?.map((tag) => (
+                          <div className={styles.tag} onClick={() => getByTag(tag)}>#{tag}</div>
+                        ))}</div>
 
                         <div style={{ "display": 'flex' }}>
                           <div className={styles.watch}><AiOutlineEye />{post.views}</div>

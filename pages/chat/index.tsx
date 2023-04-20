@@ -127,9 +127,9 @@ const Chat = () => {
 
         <div className={styles.messageBlock}>
           <div className={styles.inputBlock}>
-            <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} />
+            <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} disabled={!(chatID.length > 0)} />
             <input type="file" ref={inputFileRef} hidden />
-            <div className={styles.file}>{<MdOutlineAttachFile onClick={() => inputRef()} />}</div>
+            <div className={styles.file} hidden={!(chatID.length > 0)}>{<MdOutlineAttachFile onClick={() => inputRef()} />}</div>
           </div>
           <button className={styles.sendMessage}><AiOutlineSend className={styles.send} onClick={() => sendMessage()} /></button>
         </div>

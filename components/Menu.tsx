@@ -14,7 +14,8 @@ interface INav {
 const nav: INav[] = [
   { href: '/', text: "Blog" },
   { href: '/note', text: "Note" },
-  { href: '/chat', text: 'Chat' }
+  { href: '/chat', text: 'Chat' },
+  { href: '/user', text: 'User' }
 ]
 
 const Menu = () => {

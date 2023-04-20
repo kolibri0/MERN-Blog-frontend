@@ -28,12 +28,25 @@
     width: 320px;
     height: 250px;
 }
+.editIcon{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 18px;
+  color: rgb(221, 103, 0);
+  cursor: pointer;
+}
+.editIcon:hover{
+  color: rgb(255, 119, 0) ;
+}
 .containProfile{
   text-align: center;
   background-color: white;
   border-radius: 10px;
   height: 250px;
   margin-bottom: 10px;
+  word-break:break-all;
+  position: relative;
 }
 .followers{
   background-color: white;
@@ -45,6 +58,8 @@
   display: flex;
   margin-top: 5px;
   margin-bottom: 5px;
+  color: black;
+  text-decoration: none;
 }
 .right{
   /* border: 1px solid green; */
@@ -56,6 +71,53 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
+}
+.editName{
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+.editColor{
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+.aboutMe{
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+.aboutMeInput{
+ max-width: 500px;
+ min-width: 250px;
+ min-height: 18px;
+ max-height: 400px;
+}
+.nameInput{
+  margin-left: 10px;
+  width: 400px;
+  padding: 3px 8px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid gray;
+  border-radius: 5px;
+}
+.changeBtn{
+  display: block;
+  margin-left: auto;
+  margin-right: 20px;
+  background-color: #d37700;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.changeBtn:hover{
+  background-color: #ff9100;
 }
 .follow{
   background-color: #002fff;
@@ -115,12 +177,6 @@
 .infoItem{
   margin: 5px 0 5px 20px
 }
-.infoItem:nth-last-child(-n+3){
-  cursor: pointer;
-}
-.infoItem:nth-last-child(-n+3):hover{
-  text-decoration: underline;
-}
 .title{
   margin-top: 10px;
   margin-bottom: 5px;
@@ -140,9 +196,19 @@
   margin-left: 5px;
 }
 .posts{
+  max-height: 390px;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  overflow-y: auto;
+}
+.link{
+  text-decoration: none;
+  color: black;
+  font-size: 17px;
+}
+.link:hover{
+  color: black;
 }
 .post{
   display: flex;
