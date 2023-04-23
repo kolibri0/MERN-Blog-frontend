@@ -47,6 +47,7 @@ const Chat = () => {
   }, [])
 
   React.useEffect(() => {
+    if (!user) router.push('/login')
     getUSerChats()
   }, [])
 

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import * as React from 'react';
 import { IPost } from '../Interface/IPost'
 import '../types'
+import FamouseUsers from '../components/FamousePeople';
 
 interface Props {
   posts: IPost[],
@@ -44,8 +45,14 @@ const Posts: React.FC<Props> = ({ posts, tags, famouseUsers }) => {
             : null
           }
         </div>
-        <div className={styles.tags}>
-          <Tags tags={tags} getByTag={getByTag} styles={styles} />
+        <div>
+          <div className={styles.tags}>
+            <Tags tags={tags} getByTag={getByTag} styles={styles} />
+          </div>
+          <div className={styles.famouseUsers}>
+            <div className={styles.famouseText}>Famouse users</div>
+            <FamouseUsers styles={styles} famouseUsers={famouseUsers} />
+          </div>
         </div>
       </div>
     </div>);

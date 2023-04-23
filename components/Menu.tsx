@@ -5,6 +5,8 @@ import styles from '../styles/App.module.css'
 import '../types'
 import { CgProfile } from 'react-icons/cg'
 import * as React from 'react';
+import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
+import { BsArrowDownUp } from 'react-icons/bs'
 
 interface INav {
   href: string,
@@ -14,39 +16,45 @@ interface INav {
 const nav: INav[] = [
   { href: '/', text: "Blog" },
   { href: '/note', text: "Note" },
-  { href: '/chat', text: 'Chat' },
-  { href: '/user', text: 'User' }
+  { href: '/chat', text: 'Your chats' },
+  { href: '/user', text: 'Find users' },
+  { href: '/add-post', text: 'Add new post' },
 ]
 
-const Menu = () => {
+const MyMenu = () => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.userSlice)
 
   const logoutUser = () => dispatch(logout(null))
+  const { collapseSidebar, collapsed } = useProSidebar()
+
 
   return (
     <div className="App">
-      <div className={styles.head}>
-        <div className={styles.containNav}>
-          <div>
-            {nav.map((res) => <Link className={styles.navItem} href={res.href}>{res.text}</Link>)}
-          </div>
-          <div>
+      <div className={styles.nav} style={{ height: '100%', position: 'fixed', zIndex: 12000, backgroundColor: 'white' }}>
+        <Sidebar>
+          <button className={styles.menuBtn} onClick={() => collapseSidebar()}>
+            {
+              !collapsed
+                ? <div>Close <BsArrowDownUp /></div>
+                : <div>Open <BsArrowDownUp /></div>
+            }
+          </button>
+          <Menu>
+            {nav.map((res) => <MenuItem className={styles.navItem} component={<Link href={`${res.href}`} />}>{res.text}</MenuItem>)}
             {user
               ? <>
-                <Link href='/add-post' className={styles.addPost}>Add post</Link>
-                <Link href={`/user/${user._id}`} className={styles.myProfile}>
-                  <CgProfile className={styles.profileIcon} style={{ color: `${user.color}` }} />
-                </Link>
-                <a onClick={() => logoutUser()} className={styles.logout}>Logout</a>
+                <MenuItem className={styles.navItem} component={<Link href={`/user/${user?._id}`} />}>Profile</MenuItem>
+                <MenuItem className={styles.navItem} onClick={() => logoutUser()}>Logout</MenuItem>
               </>
-              : <Link className={styles.logout} href={"/login"}>Login</Link>
+              : <MenuItem className={styles.navItem} component={<Link href={`/login`} />}>Login</MenuItem>
             }
-          </div>
-        </div>
+          </Menu>
+        </Sidebar>
+
       </div>
-    </div>
+    </div >
   );
 }
 
-export default Menu;
+export default MyMenu;

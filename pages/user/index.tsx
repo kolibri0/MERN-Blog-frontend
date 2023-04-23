@@ -5,6 +5,8 @@ import '../../types'
 import axios from '../../components/axios';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useAppSelector } from '../../redux/hook'
+import { userAuthSelector } from '../../redux/auth';
 
 
 
@@ -12,6 +14,11 @@ const Users = ({ users }) => {
 
   const router = useRouter()
   const [userName, setUserName] = React.useState('')
+  const user = useAppSelector(userAuthSelector)
+
+  React.useEffect(() => {
+    if (!user) router.push('/login')
+  }, [])
 
   const searchUsersByName = () => {
     router.push(`/user?name=${userName}`)

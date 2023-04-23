@@ -3,7 +3,8 @@
     display: flex;
     /* border: 1px solid red; */
     width: 1000px;
-    margin: 10px auto 0;
+    margin: 0 auto;
+    padding-top: 10px;
 }
 .profile{
     font-size: 100px;

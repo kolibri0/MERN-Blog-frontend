@@ -122,6 +122,39 @@
 }
 
 
+.famouseUsers{
+  margin-top: 10px;
+  background-color: white;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+.famouseText{
+  font-size: 18px;
+  font-weight: bold;
+  color: #292929;
+}
+.famouseProfile{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
+}
+.profileIcon{
+  margin-right: 5px;
+}
+.famouseItem{
+  margin-bottom: 2px;
+}
+.followers{
+  margin-bottom: 5px;
+}
+.hr{
+  height: 1px; 
+  background-color: rgb(88, 88, 88);
+  width: 95%;
+}
+
 
 
 @media (max-width: 1200px){
