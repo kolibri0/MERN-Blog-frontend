@@ -8,12 +8,14 @@ import axios from '../../components/axios'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { SocketContext } from '../../components/context/socket'
 import { useRouter } from 'next/router';
-
+import ChatItem from '../../components/ChatItem';
+import MessageItem from '../../components/MessageItem';
+import { IMessage } from '../../Interface/IMessage'
+import { IChat } from '../../Interface/IChat'
 
 const Chat = () => {
   const router = useRouter()
   const socket = React.useContext(SocketContext)
-  const inputFileRef = React.useRef<HTMLInputElement>(null)
   const { user } = useAppSelector(state => state.userSlice)
   const [chats, setChats] = React.useState<any[]>([])
   const [chatMessages, setChatMessages] = React.useState<any[]>([])
@@ -21,12 +23,11 @@ const Chat = () => {
   const [chatID, setChatID] = React.useState('')
   const [messageText, setMessageText] = React.useState('')
 
-  const getUSerChats = async () => {
+  const getUSerChats = async (): Promise<void> => {
     const { data } = await axios.get(`/users/${user?._id}/chats`)
     setChats(data.chats)
   }
-
-  const selectChat = (chat) => {
+  const selectChat = (chat): void => {
     socket.emit('leave', { roomId: chat._id })
     setChatID('')
     setMessageText('')
@@ -38,7 +39,7 @@ const Chat = () => {
         : setChatName(chat.userOne.name)
   }
 
-  const getChatMessage = React.useCallback((id: any) => {
+  const getChatMessage = React.useCallback((id: any): void => {
     socket.emit('get-room-messages', { roomId: id })
     socket.on("output-room-message", (data) => {
       setChatMessages(data)
@@ -51,23 +52,15 @@ const Chat = () => {
     getUSerChats()
   }, [])
 
-  const inputRef = () => {
-    if (inputFileRef.current) {
-      inputFileRef.current.click()
-    }
-  }
-
-  const sendMessage = () => {
+  const sendMessage = (): void => {
     socket.emit("send-message", { roomId: chatID, text: messageText, userId: user?._id })
     socket.on('get-message', data => {
-      // setChatMessages([...chatMessages, data.message])
       setChatMessages(data.message)
-
     })
     setMessageText('')
   }
 
-  const deleteChat = async () => {
+  const deleteChat = async (): Promise<void> => {
     const { data } = await axios.delete(`/chats/${chatID}`)
     if (data.success) {
       setChats(chats.filter(el => el._id != chatID))
@@ -76,23 +69,13 @@ const Chat = () => {
     }
   }
 
-
   return (<>
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.messages}>People</div>
         {
           chats
-            ? chats.map((chat) => (
-              <div className={styles.chatItem} onClick={() => selectChat(chat)} key={chat._id}>
-                <div className={styles.profileImg}></div>
-                {user &&
-                  chat.userOne._id == user._id
-                  ? <div className={styles.chatPerson}>{chat.userTwo.name}</div>
-                  : <div className={styles.chatPerson}>{chat.userOne.name}</div>
-                }
-              </div>
-            ))
+            ? chats.map((chat: IChat) => <ChatItem styles={styles} chat={chat} user={user} selectChat={selectChat} />)
             : null
         }
       </div>
@@ -113,15 +96,8 @@ const Chat = () => {
           <div className={styles.hr} />
         </div>
         <div className={styles.chat}>
-          {user &&
-            chatMessages
-            ? chatMessages.map((message) => (
-              <div className={message.user == user._id ? styles.me : styles.friend} key={message._id}>
-                <div className={message.user == user._id ? styles.message : styles.messageFriend}>
-                  {message.text}
-                </div>
-              </div>
-            ))
+          {user && chatMessages
+            ? chatMessages.map((message: IMessage) => <MessageItem styles={styles} user={user} message={message} key={message._id} />)
             : null
           }
         </div>
@@ -129,15 +105,12 @@ const Chat = () => {
         <div className={styles.messageBlock}>
           <div className={styles.inputBlock}>
             <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} disabled={!(chatID.length > 0)} />
-            <input type="file" ref={inputFileRef} hidden />
-            <div className={styles.file} hidden={!(chatID.length > 0)}>{<MdOutlineAttachFile onClick={() => inputRef()} />}</div>
           </div>
           <button className={styles.sendMessage}><AiOutlineSend className={styles.send} onClick={() => sendMessage()} /></button>
         </div>
       </div>
     </div>
   </>)
-
 }
 
 export default Chat;

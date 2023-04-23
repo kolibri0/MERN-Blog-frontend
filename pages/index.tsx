@@ -51,7 +51,9 @@ const Posts: React.FC<Props> = ({ posts, tags, famouseUsers }) => {
           </div>
           <div className={styles.famouseUsers}>
             <div className={styles.famouseText}>Famouse users</div>
-            <FamouseUsers styles={styles} famouseUsers={famouseUsers} />
+            <div>
+              {famouseUsers.map((user) => <FamouseUsers styles={styles} user={user} />)}
+            </div>
           </div>
         </div>
       </div>

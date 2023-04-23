@@ -7,10 +7,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAppSelector } from '../../redux/hook'
 import { userAuthSelector } from '../../redux/auth';
+import UserItem from '../../components/UserItem';
+import { IFollow } from '../../Interface/IFollow'
 
+interface IProps {
+  users: IFollow[]
+}
 
-
-const Users = ({ users }) => {
+const Users: React.FC<IProps> = ({ users }) => {
 
   const router = useRouter()
   const [userName, setUserName] = React.useState('')
@@ -31,16 +35,7 @@ const Users = ({ users }) => {
         <input className={styles.input} type="text" placeholder='Entae user name...' value={userName} onChange={(e) => setUserName(e.target.value)} />
         <button className={styles.search} onClick={() => searchUsersByName()}>Search</button>
       </div>
-      {users.map((user) => (
-        <Link className={styles.userItem} href={`/user/${user._id}`}>
-          <div>
-            <CgProfile className={styles.profileIcon} color={user.color} />
-          </div>
-          <div>
-            <div>{user.name}</div>
-          </div>
-        </Link>
-      ))}
+      {users.map((user: IFollow) => <UserItem styles={styles} user={user} />)}
     </div>
   </>)
 }
