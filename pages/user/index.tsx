@@ -9,6 +9,7 @@ import { useAppSelector } from '../../redux/hook'
 import { userAuthSelector } from '../../redux/auth';
 import UserItem from '../../components/UserItem';
 import { IFollow } from '../../Interface/IFollow'
+import Layout from '../../components/Layout';
 
 interface IProps {
   users: IFollow[]
@@ -30,13 +31,15 @@ const Users: React.FC<IProps> = ({ users }) => {
   }
 
   return (<>
-    <div className={styles.container}>
-      <div className={styles.containBtn}>
-        <input className={styles.input} type="text" placeholder='Entae user name...' value={userName} onChange={(e) => setUserName(e.target.value)} />
-        <button className={styles.search} onClick={() => searchUsersByName()}>Search</button>
+    <Layout title='Search users'>
+      <div className={styles.container}>
+        <div className={styles.containBtn}>
+          <input className={styles.input} type="text" placeholder='Entae user name...' value={userName} onChange={(e) => setUserName(e.target.value)} />
+          <button className={styles.search} onClick={() => searchUsersByName()}>Search</button>
+        </div>
+        {users.map((user: IFollow) => <UserItem styles={styles} user={user} />)}
       </div>
-      {users.map((user: IFollow) => <UserItem styles={styles} user={user} />)}
-    </div>
+    </Layout>
   </>)
 }
 

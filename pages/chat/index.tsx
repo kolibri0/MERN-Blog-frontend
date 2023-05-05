@@ -12,6 +12,7 @@ import ChatItem from '../../components/ChatItem';
 import MessageItem from '../../components/MessageItem';
 import { IMessage } from '../../Interface/IMessage'
 import { IChat } from '../../Interface/IChat'
+import Layout from '../../components/Layout';
 
 const Chat = () => {
   const router = useRouter()
@@ -70,46 +71,48 @@ const Chat = () => {
   }
 
   return (<>
-    <div className={styles.container}>
-      <div className={styles.left}>
-        <div className={styles.messages}>People</div>
-        {
-          chats
-            ? chats.map((chat: IChat) => <ChatItem styles={styles} chat={chat} user={user} selectChat={selectChat} />)
-            : null
-        }
-      </div>
-      <div className={styles.right}>
-        <div className={styles.chatHead}>
-          <div className={styles.chatHeadContain}>
-            <div>
-              <div className={styles.headName}>{chatName}</div>
-            </div>
-            <div>
-              {
-                chatID.length
-                  ? <button className={styles.deleteChat} onClick={() => deleteChat()} ><RiDeleteBin6Line /></button>
-                  : null
-              }
-            </div>
-          </div>
-          <div className={styles.hr} />
-        </div>
-        <div className={styles.chat}>
-          {user && chatMessages
-            ? chatMessages.map((message: IMessage) => <MessageItem styles={styles} user={user} message={message} key={message._id} />)
-            : null
+    <Layout title='Chat page'>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <div className={styles.messages}>People</div>
+          {
+            chats
+              ? chats.map((chat: IChat) => <ChatItem styles={styles} chat={chat} user={user} selectChat={selectChat} />)
+              : null
           }
         </div>
-
-        <div className={styles.messageBlock}>
-          <div className={styles.inputBlock}>
-            <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} disabled={!(chatID.length > 0)} />
+        <div className={styles.right}>
+          <div className={styles.chatHead}>
+            <div className={styles.chatHeadContain}>
+              <div>
+                <div className={styles.headName}>{chatName}</div>
+              </div>
+              <div>
+                {
+                  chatID.length
+                    ? <button className={styles.deleteChat} onClick={() => deleteChat()} ><RiDeleteBin6Line /></button>
+                    : null
+                }
+              </div>
+            </div>
+            <div className={styles.hr} />
           </div>
-          <button className={styles.sendMessage}><AiOutlineSend className={styles.send} onClick={() => sendMessage()} /></button>
+          <div className={styles.chat}>
+            {user && chatMessages
+              ? chatMessages.map((message: IMessage) => <MessageItem styles={styles} user={user} message={message} key={message._id} />)
+              : null
+            }
+          </div>
+
+          <div className={styles.messageBlock}>
+            <div className={styles.inputBlock}>
+              <input className={styles.messageInput} type="text" value={messageText} placeholder='Enter message...' onChange={(e) => setMessageText(e.target.value)} disabled={!(chatID.length > 0)} />
+            </div>
+            <button className={styles.sendMessage}><AiOutlineSend className={styles.send} onClick={() => sendMessage()} /></button>
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   </>)
 }
 

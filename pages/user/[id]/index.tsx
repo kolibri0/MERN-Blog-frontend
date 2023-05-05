@@ -16,6 +16,7 @@ import UserPostItem from '../../../components/UserPostItem'
 import FollowBtn from '../../../components/FollowBtn'
 import UserInfoBlock from '../../../components/UserInfoBlock'
 import { IFollow } from '../../../Interface/IFollow'
+import Layout from '../../../components/Layout'
 
 interface IProps {
   userInfo: IUser,
@@ -34,7 +35,7 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
     if (!auth && !localStorage.getItem('token')) router.push('/login')
     setUser(userInfo)
   }, [id])
-  console.log(user?.followers)
+  // console.log(user?.followers)
   const getByTag = (tag: string): Promise<boolean> => router.push(`/?tag=${tag}`)
 
   const follow = async () => {
@@ -69,59 +70,61 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
   const meSubscribeOnUser = (subscribeUserId) => subscribeUserId._id == id
 
   return (<>
-    <div className={styles.contain}>
-      {user
-        ?
-        <>
-          <div className={styles.left}>
-            <div className={styles.containProfile}>
-              <CgProfile className={styles.profile} color={userInfo.color} />
-              <div className={styles.name}>{user.name}</div>
+    <Layout title={user?._id == me?._id ? 'Profile' : 'User profile'}>
+      <div className={styles.contain}>
+        {user
+          ?
+          <>
+            <div className={styles.left}>
+              <div className={styles.containProfile}>
+                <CgProfile className={styles.profile} color={userInfo.color} />
+                <div className={styles.name}>{user.name}</div>
+                {
+                  user._id == me?._id
+                    ? <Link className={styles.editIcon} href={`${id}/edit`}><RiEdit2Line /></Link>
+                    : null
+                }
+
+                <FollowBtn styles={styles} user={user} me={me} meSubscribeOnUser={meSubscribeOnUser} deleteFollow={deleteFollow} follow={follow} createChatWithUser={createChatWithUser} />
+
+              </div>
+              <div className={styles.followers}>
+                <div>Followers:</div>
+                {
+                  user.followers.length
+                    ? user.followers.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)
+                    : <div>No have followers</div>
+                }
+              </div>
+
               {
                 user._id == me?._id
-                  ? <Link className={styles.editIcon} href={`${id}/edit`}><RiEdit2Line /></Link>
+                  ?
+                  <div className={styles.followers}>
+                    <div>You follow on:</div>
+                    {user.youFollow.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)}
+                  </div>
                   : null
               }
-
-              <FollowBtn styles={styles} user={user} me={me} meSubscribeOnUser={meSubscribeOnUser} deleteFollow={deleteFollow} follow={follow} createChatWithUser={createChatWithUser} />
-
             </div>
-            <div className={styles.followers}>
-              <div>Followers:</div>
-              {
-                user.followers.length
-                  ? user.followers.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)
-                  : <div>No have followers</div>
-              }
+            <div className={styles.right}>
+
+              <UserInfoBlock styles={styles} user={user} posts={posts} />
+
+              <div className={styles.hr} />
+              <div className={styles.posts}>
+                <div>User posts:</div>
+                {user && posts
+                  ? posts.map((post: IPost, i) => <UserPostItem styles={styles} post={post} getByTag={getByTag} />)
+                  : null
+                }
+              </div>
             </div>
 
-            {
-              user._id == me?._id
-                ?
-                <div className={styles.followers}>
-                  <div>You follow on:</div>
-                  {user.youFollow.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)}
-                </div>
-                : null
-            }
-          </div>
-          <div className={styles.right}>
-
-            <UserInfoBlock styles={styles} user={user} posts={posts} />
-
-            <div className={styles.hr} />
-            <div className={styles.posts}>
-              <div>User posts:</div>
-              {user && posts
-                ? posts.map((post: IPost, i) => <UserPostItem styles={styles} post={post} getByTag={getByTag} />)
-                : null
-              }
-            </div>
-          </div>
-
-        </>
-        : null}
-    </div >
+          </>
+          : null}
+      </div >
+    </Layout>
   </>)
 }
 

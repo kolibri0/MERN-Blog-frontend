@@ -35,7 +35,7 @@
   padding: 1px 3px;
 }
 .profileImg{
-  background-color: black;
+  /* background-color: black; */
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -46,6 +46,7 @@
   width: 100%;
   border: 1px solid gray;
   border-radius: 20px;
+  background-color: white;
 }
 
 .friend{
@@ -147,12 +148,12 @@
 }
 .sendMessage{
   border: none;
-  background-color: rgb(245, 245, 245);
   border-radius: 50%;
   margin-left: 10px;
+  background-color: white;
 }
 .send{
   color: blue;
-  font-size: 23px;
+  font-size: 25px;
   cursor: pointer;
 }

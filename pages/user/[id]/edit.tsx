@@ -8,6 +8,7 @@ import { CgProfile } from 'react-icons/cg';
 import { useAppSelector } from '../../../redux/hook';
 import { userAuthSelector } from '../../../redux/auth';
 import { useRouter } from 'next/router';
+import Layout from '../../../components/Layout';
 
 
 const UserEdit = ({ userInfo }) => {
@@ -42,43 +43,45 @@ const UserEdit = ({ userInfo }) => {
   }
 
   return (<>
-    <div className={styles.contain}>
-      {user
-        ?
-        <>
-          <div className={styles.left}>
-            <div className={styles.containProfile}>
-              <CgProfile className={styles.profile} color={color} />
-              <div className={styles.name}>{userName}</div>
-            </div>
-          </div>
-          <div className={styles.right}>
-            <div className={styles.userInfo}>
-              <div className={styles.editName} >
-                <div>User name:</div>
-                <input className={styles.nameInput} value={userName} onChange={(e) => setUserName(e.target.value)} placeholder='Enter name...' />
-              </div>
-              <div className={styles.hr} />
-              <div className={styles.editColor}>Color:
-                <select onChange={(e) => changeColor(e)}>
-                  <option selected hidden>{userInfo.color}</option>
-                  {colorOption.map((colorItem) => color !== colorItem
-                    ? <option key={colorItem}>{colorItem}</option>
-                    : null
-                  )}
-                </select>
-              </div>
-              <div className={styles.hr} />
-              <div className={styles.aboutMe}>
-                <div>About me:</div>
-                <textarea className={styles.aboutMeInput} value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} />
+    <Layout title='Change user'>
+      <div className={styles.contain}>
+        {user
+          ?
+          <>
+            <div className={styles.left}>
+              <div className={styles.containProfile}>
+                <CgProfile className={styles.profile} color={color} />
+                <div className={styles.name}>{userName}</div>
               </div>
             </div>
-            <button className={styles.changeBtn} onClick={() => changeMyProfile()}>Change</button>
-          </div>
-        </>
-        : null}
-    </div >
+            <div className={styles.right}>
+              <div className={styles.userInfo}>
+                <div className={styles.editName} >
+                  <div>User name:</div>
+                  <input className={styles.nameInput} value={userName} onChange={(e) => setUserName(e.target.value)} placeholder='Enter name...' />
+                </div>
+                <div className={styles.hr} />
+                <div className={styles.editColor}>Color:
+                  <select onChange={(e) => changeColor(e)}>
+                    <option selected hidden>{userInfo.color}</option>
+                    {colorOption.map((colorItem) => color !== colorItem
+                      ? <option key={colorItem}>{colorItem}</option>
+                      : null
+                    )}
+                  </select>
+                </div>
+                <div className={styles.hr} />
+                <div className={styles.aboutMe}>
+                  <div>About me:</div>
+                  <textarea className={styles.aboutMeInput} value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} />
+                </div>
+              </div>
+              <button className={styles.changeBtn} onClick={() => changeMyProfile()}>Change</button>
+            </div>
+          </>
+          : null}
+      </div >
+    </Layout>
   </>)
 }
 

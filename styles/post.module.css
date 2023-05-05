@@ -13,12 +13,13 @@
     padding-top: 10px;
 }
 .post{
-    margin: 25px auto 20px;
+    margin: 0 auto 20px;
     width: 900px;
     background-color: #ffffff;
     border-radius: 10px;
     position: relative;
     animation: Apost 1.4s normal;
+    padding-top: 20px;
 }
 .tagItem{
     display: inline;
@@ -110,7 +111,7 @@
     cursor: pointer;
     position: absolute;
     left: -35px;
-    top: -1px;
+    top: 20px;
     font-size: 27px;
 }
 .changePost:hover{
@@ -120,7 +121,7 @@
     cursor: pointer;
     position: absolute;
     right: -35px;
-    top: -1px;
+    top: 20px;
     font-size: 27px;
 }
 .deletePost:hover{

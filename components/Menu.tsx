@@ -28,6 +28,9 @@ const MyMenu = () => {
   const logoutUser = () => dispatch(logout(null))
   const { collapseSidebar, collapsed } = useProSidebar()
 
+  React.useEffect(() => {
+    collapseSidebar(true)
+  }, [])
 
   return (
     <div className="App">

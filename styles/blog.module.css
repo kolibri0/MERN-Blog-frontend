@@ -127,6 +127,7 @@
   background-color: white;
   padding: 7px 10px;
   border-radius: 5px;
+  animation: Atags 1.7s normal;
 }
 .famouseText{
   font-size: 18px;
@@ -256,6 +257,7 @@
     }
     .img{
         width: 330px;
+        
     }
     
 }
