@@ -2,44 +2,27 @@
 
 In this project, I implemented the features of the blog and chat. 
 
-
 ### Functionality: 
-
 - post creation
-
 - read post
-
 - edit post
-
 - deleting a post
-
 - ability to comment on a post
-
 - go to a user, see his posts and information about him
-
 - Create a chat with a user
 - write a message to a user 
-
 - find a member
 - follow this user 
 
 
 ### Technologies used in the project:
-  
 1. React.js
-  
 2. Redux-toolkit
-  
 3. Next.js
-  
 4. SSR
-  
 5. Node.js (backend)
-  
 6. Soket.io 
-  
 7. Typescript
-  
 8. MongoDB
   
 

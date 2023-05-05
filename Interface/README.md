@@ -1,0 +1,19 @@
+# Folder structure
+- IChat
+	- The chat type is described (users and id)
+- IComentProps
+	- Describes the types of variables for creating, deleting and changing comments under the post (used in the redux folder)
+- IFollow
+	- Describes the type of user who follow on you
+- IFunctionProps
+	- Type for auth user
+- IMessage
+	- Describes the type of message from the user
+- INote
+	- Type for note
+- IPost
+	- Type for post and comment 
+- IProps
+	- Types for props passed in to components
+- IUser
+	- Here describes user model 

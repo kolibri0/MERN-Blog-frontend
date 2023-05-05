@@ -1,0 +1,40 @@
+# Folder structure
+
+- context
+	- Setting for Socket.io
+- BlogForm
+	- Form for added post
+- BlogItem
+	- After iterating over the array of posts, this post is output  
+- Categories
+	- Block with post categories
+- ChatItem
+	- Chat structure with the user 
+- CommentItem
+	- User comments, where it is checked if he is not registered, then the block of comments becomes unreadable
+- FamousePeople
+	- Item for iteration to array famousePeople
+- FollowBtn
+	- Button to track and message, also checks if you are subscribed to this user, then displays an button for unsubscribe, if not subscribed, then button for subscribes 
+- FollowItem
+	-Item for iteration to array followers and youFollow
+- Layout
+	- Layout for menu and for check jwt tocken
+- Menu
+	- Menu for app
+- MessageItem
+	- Message for chat, where checked who send the message
+- PostBtns
+	- Buttons for added or chenged comments in the post
+- PostInfo
+	- Content in Post (img, title, text, tags. etc...)
+- Tags
+	- Block with tags, array tags, and the ability to filter posts by tags     
+- UserInfoBlock
+	- Info about user (name, count posts, followers, etc...)
+- UserItem
+	- Item user for search user page
+- UserPostItem
+	- Block to display posts written by the user
+- axios
+	- Setting for axios
