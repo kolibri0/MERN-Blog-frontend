@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# This project was created for learn Node.js, socket.io, Next.js etc...
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In this project, I implemented the features of the blog and chat. 
 
-## Available Scripts
 
-In the project directory, you can run:
+### Functionality: 
 
-### `npm start`
+- post creation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- read post
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- edit post
 
-### `npm test`
+- deleting a post
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- ability to comment on a post
 
-### `npm run build`
+- go to a user, see his posts and information about him
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Create a chat with a user
+- write a message to a user 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- find a member
+- follow this user 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Technologies used in the project:
+  
+1. React.js
+  
+2. Redux-toolkit
+  
+3. Next.js
+  
+4. SSR
+  
+5. Node.js (backend)
+  
+6. Soket.io 
+  
+7. Typescript
+  
+8. MongoDB
+  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project preview
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<img src="https://user-images.githubusercontent.com/99971966/234077888-61b1d9b8-a141-482c-abc4-895ea10919a6.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077919-f885c13c-cdd8-44d1-a6df-0e5d68250d53.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077936-c0e7a9bf-59bb-4acb-8cd2-c92825107386.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077949-037c7514-7712-43a7-9838-029db555bc62.png" alt="drawing" width="180" height="100"/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+<img src="https://user-images.githubusercontent.com/99971966/234077958-d2019c62-b0ad-4238-80af-45c90378828b.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077969-6761d2ef-4df1-4b69-b56e-924c2b90c0e2.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077978-654df954-b2d0-4387-9bde-6f6ff90dff53.png" alt="drawing" width="180" height="100"/><img src="https://user-images.githubusercontent.com/99971966/234077909-a3db2a65-3698-43af-833b-427c9d392b8e.png" alt="drawing" width="180" height="100"/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Interface | *This is where the types for components, etc. are stored*
+- components | *Individual parts of the application are stored here*
+- pages | *Pages app (url)*
+- public | *Static files (html, font, img etc...)*
+- redux | *Files for managing the state of the application*
+- styles | *application styles (module.css)*
