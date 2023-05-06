@@ -157,3 +157,99 @@
   font-size: 25px;
   cursor: pointer;
 }
+@media (max-width: 1024px){
+  .container{
+    width: 850px;
+  }
+  .right{
+    width: 700px;
+    margin: 0 auto;
+  }
+  .messageInput{
+    width: 500px;
+    margin: 0 auto 10px;
+    padding: 8px 10px;
+  }
+  .send{
+    margin-bottom: 15px;
+  }
+  .chat{
+    width: 600px;
+  }
+}
+@media (max-width: 768px){
+  .container{
+    width: 600px;
+    display: block;
+  }
+  .left{
+    width: 600px;
+    margin: 0 auto 10px;
+    border: 1px solid black;
+  }
+  .right{
+    width: 600px;
+    margin: 0 auto;
+  }
+  .messageInput{
+    width: 500px;
+    margin: 0 auto 10px;
+    padding: 8px 10px;
+  }
+  .send{
+    margin-bottom: 15px;
+  }
+  .me{
+    width: 450px;
+    word-break: break-all;
+  }
+  .friend{
+    width: 450px;
+    word-break: break-all;
+  }
+  .chat{
+    width: 595px;
+  }
+}
+
+@media (max-width: 480px){
+  .container{
+    width: 400px;
+    display: block;
+  }
+  .left{
+    width: 310px;
+    margin: 0 auto 10px;
+    border: 1px solid black;
+  }
+  .right{
+    width: 300px;
+    margin: 0 auto;
+  }
+  .messageInput{
+    width: 220px;
+    margin: 0 auto 10px;
+  }
+  .send{
+    margin-bottom: 15px;
+  }
+  .me{
+    width: 250px;
+    word-break: break-all;
+  }
+  .friend{
+    width: 250px;
+    word-break: break-all;
+  }
+  .chat{
+    width: 298px;
+  }
+}
+
+
+
+
+
+
+
+

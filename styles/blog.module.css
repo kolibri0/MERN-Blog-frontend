@@ -107,6 +107,7 @@
 .title:hover{
     color: rgb(44, 44, 44);
 }
+
 .tagItem{
     display: inline;
     margin-right: 7px;
@@ -201,14 +202,13 @@
     .tags{
        display: none;
     }
+    .famouseUsers{
+      display: none;
+    }
     .posts{
         margin-right: 20px;
         width: 440px;
         margin: 0 auto;
-    }
-    .category{
-        display: flex;
-        margin-left: 25px;
     }
     .img{
         width: 440px;
@@ -217,23 +217,27 @@
 @media (max-width: 480px){
     
     .container{
-        width: 380px;
+        width: 350px;
         margin: 0 auto;   
     }
     .tags{
        display: none;
     }
     .posts{
-        margin-right: 20px;
-        width: 380px;
-        margin: 0 auto;
+        width: 280px;
+        /* margin: 0 auto; */
+        margin-left: 50px;
+    }
+    .title{
+      width: 195px;
+      word-wrap: break-word;
     }
     .category{
-        display: flex;
-        margin-left: 130px;
+      display: flex;
+      margin-left: 105px;
     }
     .img{
-        width: 380px;
+        width: 280px;
     }
 }
 
@@ -242,9 +246,6 @@
     .container{
         width: 300px;
         margin: 0 auto;   
-    }
-    .tags{
-       display: none;
     }
     .posts{
         margin-right: 20px;

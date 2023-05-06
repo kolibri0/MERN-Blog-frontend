@@ -40,3 +40,20 @@
   cursor: pointer;
   transition: all 0.5s;
 }
+@media (max-width: 768px){
+  .container{
+    width: 700px;
+  }
+}
+@media (max-width: 480px){
+  .container{
+    width: 370px;
+  }
+  .input{
+    width: 200px;
+    margin-left: 40px;
+  }
+  .userItem{
+    width: 200px;
+  }
+}

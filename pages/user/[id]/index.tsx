@@ -89,23 +89,25 @@ const User: React.FC<IProps> = ({ userInfo, posts }) => {
 
               </div>
               <div className={styles.followers}>
-                <div>Followers:</div>
+                <div >
+                  <div>Followers:</div>
+                  {
+                    user.followers.length
+                      ? user.followers.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)
+                      : <div>No have followers</div>
+                  }
+                </div>
+
                 {
-                  user.followers.length
-                    ? user.followers.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)
-                    : <div>No have followers</div>
+                  user._id == me?._id
+                    ?
+                    <div >
+                      <div>You follow on:</div>
+                      {user.youFollow.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)}
+                    </div>
+                    : null
                 }
               </div>
-
-              {
-                user._id == me?._id
-                  ?
-                  <div className={styles.followers}>
-                    <div>You follow on:</div>
-                    {user.youFollow.map((followItem: IFollow, i) => <FollowItem styles={styles} followItem={followItem} key={followItem._id} />)}
-                  </div>
-                  : null
-              }
             </div>
             <div className={styles.right}>
 

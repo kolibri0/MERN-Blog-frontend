@@ -12,3 +12,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.css-1wvake5.ps-collapsed {
+    width: 64px !important;
+    min-width: 64px !important;
+}
+
+@media (max-width: 480px){
+  .css-1wvake5.ps-collapsed {
+    width: 37px !important;
+    min-width: 37px !important;
+}
+.css-1wvake5{
+  width: 120px !important;
+  min-width: 120px !important;
+}
+}

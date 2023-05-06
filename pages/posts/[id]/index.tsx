@@ -110,7 +110,7 @@ const Post: React.FC<IComponent> = ({ post, comments }) => {
           <div className={styles.comments}>
             <div className={styles.block}>Comments</div>
             <div className={styles.commentAdd}>
-              <CgProfile className={styles.person} />
+              <CgProfile className={styles.personInput} />
               {
                 user
                   ? <input className={styles.Input} ref={textInput} value={commentText} type={'text'} placeholder='Enter comment...' onChange={(e) => setCommentText(e.target.value)} />

@@ -24,12 +24,13 @@ const nav: INav[] = [
 const MyMenu = () => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(state => state.userSlice)
-
+  let windowWidth: any;
   const logoutUser = () => dispatch(logout(null))
   const { collapseSidebar, collapsed } = useProSidebar()
 
   React.useEffect(() => {
     collapseSidebar(true)
+    windowWidth = window.innerWidth
   }, [])
 
   return (
@@ -39,8 +40,8 @@ const MyMenu = () => {
           <button className={styles.menuBtn} onClick={() => collapseSidebar()}>
             {
               !collapsed
-                ? <div>Close <BsArrowDownUp /></div>
-                : <div>Open <BsArrowDownUp /></div>
+                ? <div>Close {windowWidth > 375 ? <BsArrowDownUp /> : null}</div>
+                : <div>Open {windowWidth > 375 ? <BsArrowDownUp /> : null}</div>
             }
           </button>
           <Menu>

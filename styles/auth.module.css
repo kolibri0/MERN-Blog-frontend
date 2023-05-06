@@ -77,3 +77,13 @@
     width: 207px;
     margin: 0 auto;
 }
+@media (max-width: 480px){
+  .form{
+    width: 300px;
+    height: 250px;
+    margin-left: 50px;
+  }
+  .containText{
+    margin-left: 50px;
+  }
+}

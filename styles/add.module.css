@@ -119,18 +119,19 @@
 
 @media (max-width: 480px){
     .post{
-        width: 380px;
+        width: 330px;
+        margin-left: 35px;
     }
 
     .img{
-        width: 380px;
+        width: 330px;
     }
 
     .inputs{
-        width: 360px;
+        width: 310px;
     }
     .markdown{
-        width: 360px;
+        width: 310px;
     }
 }
 @media (max-width: 320px){

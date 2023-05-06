@@ -237,41 +237,96 @@
 }
 
 @media (max-width: 768px){
-    .contain{
-        display: flex;
-        /* border: 1px solid red; */
-        width: 730px;
-        margin: 10px auto 0;
-        justify-content: center;
-    }
-    .posts{
-        width: 440px;
-    }
+  .contain{
+    display: block;
+    width: 500px;
+    margin-top: 0;
+  }
+  .containProfile{
+    width: 500px;
+  }
+  .right{
+    width: 500px;
+    margin-top: 200px;
+  }
+  .left{
+    width: 500px;
+    background-color: white;
+  }
+  .posts{
+    width: 480px;
+    margin-left: 0px;
+    margin: 0 auto;
+  }
+  .title{
+    word-break: break-all;
+  }
+  .img{
+    width: 100px;
+    height: 100px;
+    border-radius: 25%;
+    margin-right: 10px;
+  }
+  .follow, .unfollow{
+    margin-bottom: 10px;
+  }
+  .followers{
+    background-color: white;
+    max-height: 150px;
+    width: 480px;
+  }
+  .message{
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 600px){
-    .contain{
-        display: flex;
-        /* border: 1px solid red; */
-        width: 540px;
-        margin: 10px auto 0;
-        justify-content: center;
-    }
+  
 }
 
 @media (max-width: 480px){
-    .contain{
-        display: flex;
-        /* border: 1px solid red; */
-        width: 400px;
-        margin: 10px auto 0;
-        justify-content: center;
-    }
-    .posts{
-        margin-right: 20px;
-        width: 400px;
-        margin: 0 auto;
-    }
+  .contain{
+    display: block;
+    margin-left: 40px;
+    width: 250px;
+    margin-top: 0;
+  }
+  .containProfile{
+    width: 250px;
+  }
+  .right{
+    width: 250px;
+    margin-left: 40px;
+  }
+  .left{
+    width: 250px;
+    margin-left: 40px;
+  }
+  .posts{
+    width: 230px;
+    margin-left: 0px;
+  }
+  .post{
+    width: 180px;
+  }
+  .title{
+    word-break: break-all;
+  }
+  .img{
+    width: 50px;
+    height: 50px;
+    border-radius: 25%;
+    margin-right: 10px;
+  }
+  .followers{
+    width: 235px;
+  }
+  .follow, .unfollow{
+    margin-bottom: 10px;
+  }
+  .message{
+    margin-right: 10px;
+  }
 }
 @media (max-width: 360px){
     .contain{
