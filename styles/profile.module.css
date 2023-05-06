@@ -328,17 +328,3 @@
     margin-right: 10px;
   }
 }
-@media (max-width: 360px){
-    .contain{
-        display: flex;
-        /* border: 1px solid red; */
-        width: 320px;
-        margin: 10px auto 0;
-        justify-content: center;
-    }
-    .posts{
-        margin-right: 20px;
-        width: 330px;
-        margin: 0 auto;
-    }
-}
